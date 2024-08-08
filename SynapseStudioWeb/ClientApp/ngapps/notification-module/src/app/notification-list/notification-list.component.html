@@ -1,0 +1,232 @@
+<!--BEGIN LICENSE BLOCK--> 
+<!--Interneuron Synapse
+
+Copyright(C) 2024  Interneuron Limited
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.If not, see<http://www.gnu.org/licenses/>. -->
+<!--END LICENSE BLOCK--> 
+<app-global-css></app-global-css>
+<div>
+  <div class="card">
+    <p-toolbar>
+      <ng-template pTemplate="right">
+        <button pButton pRipple label="Add Notification" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+      </ng-template>
+    </p-toolbar>
+  </div>
+  <app-notification-item [showDialog]="_showAddDialog" [notificationTypeModel]="_notificationTypeModel" (save)="saveNotification($event)" (cancel)="cancelNotification()"></app-notification-item>
+  <!--<ng-container *ngIf="notificationTypes">
+    <div *ngFor="let notificationType of notificationTypes" class="card shadow-3 my-2">
+      <div class="grid">
+        <div class="col-10 m-3">
+          <div class="my-2 font-bold text-xl">
+            <span>{{notificationType.name}}</span>
+          </div>
+          <div class="mb-2">
+            <span>{{notificationType.description}}</span>
+          </div>
+          <div *ngFor="let channel of notificationType.channelDetails">
+            <p-panel id="custom-panel-content" class="mb-1" [header]="channel.name" [toggleable]="true">
+              <div class="field" *ngIf="channel.name !== 'Web'">
+                <ng-container *ngIf="channel.channelAudiences">
+                  <ng-container *ngFor="let aud of channel.channelAudiences">
+                    <p-chip *ngIf="channel.name == 'Email'" [label]="aud.email" [pTooltip]="aud.email" icon="pi pi-user" styleClass="custom-chip"></p-chip>
+                    <p-chip *ngIf="channel.name == 'SMS'" [label]="aud.name + '-' +aud.phoneNo" [pTooltip]="aud.email" icon="pi pi-user" styleClass="custom-chip"></p-chip>
+                  </ng-container>
+                </ng-container>
+              </div>
+              <div class="field" *ngIf="channel.name === 'Web'">
+                <ng-container *ngIf="channel.channelOptions">
+                  <ng-container *ngFor="let opt of channel.channelOptions">
+                    <p-chip [label]="opt.name" [pTooltip]="opt.name" icon="pi pi-user" styleClass="custom-chip"></p-chip>
+                    <ng-container *ngIf="opt.name == 'Specific Users'">
+                      <ng-container *ngIf="channel.channelAudiences">
+                        <ng-container *ngFor="let aud of channel.channelAudiences">
+                          <p-chip [label]="aud.email" [pTooltip]="aud.email" icon="pi pi-user" styleClass="custom-chip"></p-chip>
+                        </ng-container>
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+                <ng-container *ngIf="channel.channelAudiences">
+                  <ng-container *ngFor="let aud of channel.channelAudiences">
+                    <p-chip  [label]="aud.email" [pTooltip]="aud.email" icon="pi pi-user" styleClass="custom-chip"></p-chip>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </p-panel>
+          </div>
+        </div>
+        <div class="col-1 vertical-align-middle relative">
+          <div class="vertical-align-middle absolute right-0 bottom-50">
+              <p-button icon="pi pi-pencil" styleClass="p-button-warning m-1" (click)="edit(notificationType.id)"></p-button>
+              <p-button icon="pi pi-trash" styleClass="p-button-danger m-1" (click)="delete(notificationType.id)"></p-button>
+            </div>
+          </div>
+        </div>
+    </div>
+  </ng-container>-->
+  
+<p-table #dt id="custom-table" [value]="notificationTypes" [paginator]="true" [rows]="10" [totalRecords]="_totalRecords" [loading]="_loadingConfigs" [globalFilterFields]="['name']">
+  <ng-template pTemplate="emptymessage" let-notificationTypes>
+    <tr>
+      <td class="font-bold font-italic text-center text-900">
+        No records found
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="caption">
+    <div class="flex">
+      <span class="p-input-icon-left ml-auto">
+        <i class="pi pi-search"></i>
+        <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains')" placeholder="Search by name" />
+      </span>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="body" let-notificationType>
+    <div class="card shadow-3 my-2">
+      <div class="grid">
+        <div class="col-10 mx-3 my-1">
+          <div class="my-0 font-bold text-xl">
+            <span>{{notificationType.name}}</span>
+          </div>
+          <div class="mb-2">
+            <span>{{notificationType.description}}</span>
+          </div>
+          <div *ngFor="let channel of notificationType.channelDetails">
+            <div *ngIf="channel.isEnabled" class="card shadow-1 my-1 py-1 surface-50">
+              <span class="font-bold ml-2 mt-2">
+                <img *ngIf="channel.name == 'Email'" alt="Email Notification" src="{{ buildUrl('/dist/notification-module/assets/images/Mail_Icon.svg') }}" style="width: 1.5rem;" />
+                <img *ngIf="channel.name == 'Web'" alt="Web Notification" src="{{ buildUrl('/dist/notification-module/assets/images/Web_Icon.svg') }}" style="width: 1.5rem" />
+                <img *ngIf="channel.name == 'SMS'" alt="SMS Notification" src="{{ buildUrl('/dist/notification-module/assets/images/SMS_Icon.svg') }}" style="width: 1.5rem" />
+                {{channel.name}}
+              </span>
+              <div class="field my-1" *ngIf="channel.name !== 'Web'">
+                <ng-container *ngIf="channel.channelAudiences">
+                  <ng-container *ngFor="let aud of channel.channelAudiences">
+                    <p-chip *ngIf="channel.name == 'Email'" [label]="aud.email" [pTooltip]="aud.email" icon="pi pi-user" styleClass="custom-chip"></p-chip>
+                    <p-chip *ngIf="channel.name == 'SMS'" [label]="aud.name + '-' +aud.phoneNo" [pTooltip]="aud.email" icon="pi pi-user" styleClass="custom-chip"></p-chip>
+                  </ng-container>
+                </ng-container>
+              </div>
+              <div class="field my-1" *ngIf="channel.name === 'Web'">
+                <ng-container *ngIf="channel.channelOptions">
+                  <ng-container *ngFor="let opt of channel.channelOptions">
+                    <p-chip [label]="opt.name" [pTooltip]="opt.name" icon="pi pi-user" styleClass="custom-chip"></p-chip>
+                    <ng-container *ngIf="opt.name == 'Specific Users'">
+                      <ng-container *ngIf="channel.channelAudiences">
+                        <ng-container *ngFor="let aud of channel.channelAudiences">
+                          <p-chip [label]="aud.email" [pTooltip]="aud.email" icon="pi pi-user" styleClass="custom-chip"></p-chip>
+                        </ng-container>
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </div>
+            <!--<p-panel id="custom-panel-content" class="mb-1" [header]="channel.name" [toggleable]="true" [showHeader]="false">
+              <div class="field" *ngIf="channel.name !== 'Web'">
+                <ng-container *ngIf="channel.channelAudiences">
+                  <ng-container *ngFor="let aud of channel.channelAudiences">
+                    <p-chip *ngIf="channel.name == 'Email'" [label]="aud.email" [pTooltip]="aud.email" icon="pi pi-user" styleClass="custom-chip"></p-chip>
+                    <p-chip *ngIf="channel.name == 'SMS'" [label]="aud.name + '-' +aud.phoneNo" [pTooltip]="aud.email" icon="pi pi-user" styleClass="custom-chip"></p-chip>
+                  </ng-container>
+                </ng-container>
+              </div>
+              <div class="field" *ngIf="channel.name === 'Web'">
+                <ng-container *ngIf="channel.channelOptions">
+                  <ng-container *ngFor="let opt of channel.channelOptions">
+                    <p-chip [label]="opt.name" [pTooltip]="opt.name" icon="pi pi-user" styleClass="custom-chip"></p-chip>
+                    <ng-container *ngIf="opt.name == 'Specific Users'">
+                      <ng-container *ngIf="channel.channelAudiences">
+                        <ng-container *ngFor="let aud of channel.channelAudiences">
+                          <p-chip [label]="aud.email" [pTooltip]="aud.email" icon="pi pi-user" styleClass="custom-chip"></p-chip>
+                        </ng-container>
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+                <ng-container *ngIf="channel.channelAudiences">
+                  <ng-container *ngFor="let aud of channel.channelAudiences">
+                    <p-chip [label]="aud.email" [pTooltip]="aud.email" icon="pi pi-user" styleClass="custom-chip"></p-chip>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </p-panel>-->
+
+          </div>
+        </div>
+        <div class="col-1 mt-6 vertical-align-middle relative">
+          <div class="vertical-align-middle absolute right-0 bottom-50">
+            <p-button icon="pi pi-pencil" styleClass="p-button-warning m-1" (click)="edit(notificationType.id)"></p-button>
+            <p-button icon="pi pi-trash" styleClass="p-button-danger m-1" (click)="delete(notificationType.id)"></p-button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--<tr>
+      <td width="90%">
+        <div class="mb-2 font-weight-bold">
+          <span>{{notificationType.name}}</span>
+        </div>
+        <div class="mb-2">
+          <span>{{notificationType.description}}</span>
+        </div>
+        <div *ngFor="let channel of notificationType.channelDetails">
+          <p-panel id="custom-panel-content" class="mb-1" [header]="channel.name" [toggleable]="true">
+            <div class="field" *ngIf="channel.name !== 'Web'">
+              <ng-container *ngIf="channel.channelAudiences">
+                <ng-container *ngFor="let aud of channel.channelAudiences">
+                  <p-chip *ngIf="channel.name == 'Email'" [label]="aud.email" [pTooltip]="aud.email" icon="pi pi-user" styleClass="custom-chip"></p-chip>
+                  <p-chip *ngIf="channel.name == 'SMS'" [label]="aud.name + '-' +aud.phoneNo" [pTooltip]="aud.email" icon="pi pi-user" styleClass="custom-chip"></p-chip>
+                </ng-container>
+              </ng-container>
+            </div>
+            <div class="field" *ngIf="channel.name === 'Web'">
+              <ng-container *ngIf="channel.channelOptions">
+                <ng-container *ngFor="let opt of channel.channelOptions">
+                  <p-chip [label]="opt.name" [pTooltip]="opt.name" icon="pi pi-user" styleClass="custom-chip"></p-chip>
+                  <ng-container *ngIf="opt.name == 'Specific Users'">
+                    <ng-container *ngIf="channel.channelAudiences">
+                      <ng-container *ngFor="let aud of channel.channelAudiences">
+                        <p-chip [label]="aud.email" [pTooltip]="aud.email" icon="pi pi-user" styleClass="custom-chip"></p-chip>
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+              <ng-container *ngIf="channel.channelAudiences">
+                <ng-container *ngFor="let aud of channel.channelAudiences">
+                  <p-chip  [label]="aud.email" [pTooltip]="aud.email" icon="pi pi-user" styleClass="custom-chip"></p-chip>
+                  <p-chip  [label]="aud.name + '-' +aud.phoneNo" [pTooltip]="aud.email" icon="pi pi-user" styleClass="custom-chip"></p-chip>
+                </ng-container>
+              </ng-container>
+            </div>
+          </p-panel>
+        </div>
+      </td>
+      <td width="10%">
+        <div class="flex align-items-center justify-content-center gap-2">
+          <p-button icon="pi pi-pencil" styleClass="p-button-warning" (click)="edit(notificationType.id)"></p-button>
+          <p-button icon="pi pi-trash" styleClass="p-button-danger" (click)="delete(notificationType.id)"></p-button>
+        </div>
+      </td>
+    </tr>-->
+  </ng-template>
+</p-table>
+</div>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<p-toast></p-toast>

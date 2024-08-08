@@ -1,0 +1,402 @@
+<!--BEGIN LICENSE BLOCK--> 
+<!--Interneuron Synapse
+
+Copyright(C) 2024  Interneuron Limited
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.If not, see<http://www.gnu.org/licenses/>. -->
+<!--END LICENSE BLOCK--> 
+<div>
+  <p-dialog [(visible)]="_showAddDialog" [breakpoints]="{'960px': '80vw', '640px': '100vw'}" [style]="{width: '90vw', height:'90vh'}" header="Notification Detail" [modal]="true" styleClass="p-fluid" (onHide)="hideDialog()">
+    <ng-template pTemplate="content">
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" pInputText id="name" name="name" [ngClass]="_errorName ? 'ng-invalid ng-dirty' : 'form-control'" [(ngModel)]="_name" />
+        <span *ngIf="_errorName" class="text-danger">Name is required</span>
+      </div>
+      <div class="field">
+        <label for="description">Description</label>
+        <textarea id="description" pInputTextarea [(ngModel)]="_description" rows="3" cols="20"></textarea>
+      </div>
+      <div class="field">
+        <div class="flex-initial flex align-items-end justify-content-end border-round">
+          <p-dropdown appendTo="body" [(ngModel)]="_selectedChannelName" [options]="_selectableChannelNames" placeholder="Add Channel" optionLabel="name" [style]="{'min-width':'150px'}"></p-dropdown>
+          <button pButton pRipple icon="pi pi-plus" class="p-button-info ml-2" (click)="selectChannel($event)" type="button"></button>
+        </div>
+      </div>
+      <div class="field" *ngFor="let channel of _selectedChannels;index as i">
+        <p-panel [header]="channel.name" [toggleable]="true">
+          <ng-template pTemplate="icons">
+            <button pButton class="p-panel-header-icon p-link p-button delete-btn mx-2" title="Click to delete" (click)="deleteChannel($event, channel)">
+              <span class="pi pi-trash"></span>
+            </button>
+            <button *ngIf="channel.isEnabled" pButton class="p-panel-header-icon p-link p-button check-btn" title="Click to disable" (click)="disableChannel($event, channel)">
+              <span class="pi pi-check"></span>
+            </button>
+            <button *ngIf="!channel.isEnabled" pButton class="p-panel-header-icon p-link p-button times-btn" title="Click to enable" (click)="enableChannel($event, channel)">
+              <span class="pi pi-times"></span>
+            </button>
+          </ng-template>
+          <div class="field" *ngIf="channel.name == 'Email'">
+            <div class="row">
+              <div class="col-11">
+                <div class="row">
+                  <div class="email-col col-6">
+                    <input [(ngModel)]="_emailFullName" pInputText placeholder="Firstname Lastname" [ngClass]="_errorEmailFullName ? 'ng-invalid ng-dirty' : 'form-control'" type="text" id="emailFullName" />
+                    <span *ngIf="_errorEmailFullName" class="text-danger">Full name is required</span>
+                  </div>
+                  <div class="email-col col-6">
+                    <input [(ngModel)]="_emailId" pInputText placeholder="Email Id" [ngClass]="_errorEmailId ? 'ng-invalid ng-dirty' : 'form-control'" type="email" id="emailId" />
+                    <span *ngIf="_errorEmailId" class="text-danger">Valid email id is required</span>
+                  </div>
+                </div>
+
+              </div>
+              <div class="email-col col-1 mt-2">
+                <button pButton pRipple icon="pi pi-plus" class="p-button-success ml-2" (click)="addEmailRecord($event)"></button>
+              </div>
+            </div>
+            <ng-container *ngIf="channel.channelAudiences">
+              <ng-container *ngFor="let aud of channel.channelAudiences">
+                <p-chip *ngIf="channel.name == 'Email'" [label]="aud.email" [pTooltip]="aud.email" icon="pi pi-user" styleClass="m-2 custom-chip" [removable]="true" (onRemove)="removeAudience($event, aud, channel)"></p-chip>
+              </ng-container>
+            </ng-container>
+            <div class="row">
+              <div class="col">
+                <input [(ngModel)]="channel.emailSubject" pInputText placeholder="Email Subject" type="text" [ngClass]="_errorEmailSubject ? 'ng-invalid ng-dirty' : 'form-control'" id="emailSubject" />
+                <span *ngIf="_errorEmailSubject" class="text-danger">Email Subject is required</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <p-editor [(ngModel)]="channel.emailBody" [style]="{ height: '14rem' }" placeholder="Email Body">
+                  <ng-template pTemplate="header">
+                    <span class="ql-formats">
+                      <select class="ql-font">
+                        <option value="sans serif" selected>Sans Serif</option>
+                        <option value="serif">Serif</option>
+                        <option value="monospace">Monospace</option>
+                      </select>
+                      <select class="ql-size">
+                        <option value="small">Small</option>
+                        <option value="normal" selected>Normal</option>
+                        <option value="large">Large</option>
+                        <option value="huge">Huge</option>
+                      </select>
+                      <button type="button" class="ql-bold" aria-label="Bold"></button>
+                      <button type="button" class="ql-italic" aria-label="Italic"></button>
+                      <button type="button" class="ql-underline" aria-label="Underline"></button>
+                      <button type="button" class="ql-strike" aria-label="Strike"></button>
+                      <select class="ql-color">
+                        <option value="#000000" selected></option>
+                        <option value="#e60000"></option>
+                        <option value="#ff9900"></option>
+                        <option value="#ffff00"></option>
+                        <option value="#008a00"></option>
+                        <option value="#0066cc"></option>
+                        <option value="#9933ff"></option>
+                        <option value="#ffffff"></option>
+                        <option value="#facccc"></option>
+                        <option value="#ffebcc"></option>
+                        <option value="#ffffcc"></option>
+                        <option value="#cce8cc"></option>
+                        <option value="#cce0f5"></option>
+                        <option value="#ebd6ff"></option>
+                        <option value="#bbbbbb"></option>
+                        <option value="#f06666"></option>
+                        <option value="#ffc266"></option>
+                        <option value="#ffff66"></option>
+                        <option value="#66b966"></option>
+                        <option value="#66a3e0"></option>
+                        <option value="#c285ff"></option>
+                        <option value="#888888"></option>
+                        <option value="#a10000"></option>
+                        <option value="#b26b00"></option>
+                        <option value="#b2b200"></option>
+                        <option value="#006100"></option>
+                        <option value="#0047b2"></option>
+                        <option value="#6b24b2"></option>
+                        <option value="#444444"></option>
+                        <option value="#5c0000"></option>
+                        <option value="#663d00"></option>
+                        <option value="#666600"></option>
+                        <option value="#003700"></option>
+                        <option value="#002966"></option>
+                        <option value="#3d1466"></option>
+                      </select>
+                      <select class="ql-background">
+                        <option value="#000000"></option>
+                        <option value="#e60000"></option>
+                        <option value="#ff9900"></option>
+                        <option value="#ffff00"></option>
+                        <option value="#008a00"></option>
+                        <option value="#0066cc"></option>
+                        <option value="#9933ff"></option>
+                        <option value="#ffffff" selected></option>
+                        <option value="#facccc"></option>
+                        <option value="#ffebcc"></option>
+                        <option value="#ffffcc"></option>
+                        <option value="#cce8cc"></option>
+                        <option value="#cce0f5"></option>
+                        <option value="#ebd6ff"></option>
+                        <option value="#bbbbbb"></option>
+                        <option value="#f06666"></option>
+                        <option value="#ffc266"></option>
+                        <option value="#ffff66"></option>
+                        <option value="#66b966"></option>
+                        <option value="#66a3e0"></option>
+                        <option value="#c285ff"></option>
+                        <option value="#888888"></option>
+                        <option value="#a10000"></option>
+                        <option value="#b26b00"></option>
+                        <option value="#b2b200"></option>
+                        <option value="#006100"></option>
+                        <option value="#0047b2"></option>
+                        <option value="#6b24b2"></option>
+                        <option value="#444444"></option>
+                        <option value="#5c0000"></option>
+                        <option value="#663d00"></option>
+                        <option value="#666600"></option>
+                        <option value="#003700"></option>
+                        <option value="#002966"></option>
+                        <option value="#3d1466"></option>
+                      </select>
+                      <select class="ql-align">
+                        <option selected></option>
+                        <option value="center"></option>
+                        <option value="right"></option>
+                        <option value="justify"></option>
+                      </select>
+                      <button type="button" class="ql-script" value="sub" aria-label="Script"></button>
+                      <button type="button" class="ql-script" value="super" aria-label="Script"></button>
+                      <button type="button" class="ql-header" value="1" aria-label="Header"></button>
+                      <button type="button" class="ql-header" value="2" aria-label="Header"></button>
+                      <button type="button" class="ql-blockquote"></button>
+                      <button type="button" class="ql-code-block" aria-label="Code Block"></button>
+                      <button type="button" class="ql-list" value="ordered" aria-label="List"></button>
+                      <button type="button" class="ql-list" value="bullet" aria-label="List"></button>
+                      <button type="button" class="ql-indent" value="-1" aria-label="Indent"></button>
+                      <button type="button" class="ql-indent" value="+1" aria-label="Indent"></button>
+                      <button type="button" class="ql-direction" value="rtl" aria-label="Direction"></button>
+                      <button type="button" class="ql-link" aria-label="Link"></button>
+                      <button type="button" class="ql-image" aria-label="Image"></button>
+                    </span>
+                  </ng-template>
+                </p-editor>
+                <span *ngIf="_errorEmailBody" class="text-danger">Email Body is required</span>
+
+              </div>
+            </div>
+          </div>
+          <div class="field" *ngIf="channel.name == 'SMS'">
+            <div class="row">
+              <div class="col-11">
+                <div class="row">
+                  <div class="email-col col-4">
+                    <input [(ngModel)]="_smsFullName" pInputText placeholder="Firstname Lastname" [ngClass]="_errorSMSFullName ? 'ng-invalid ng-dirty' : 'form-control'" type="text" id="smsFullName" />
+                    <span *ngIf="_errorSMSFullName" class="text-danger">Full name is required</span>
+                  </div>
+                  <div class="email-col col-3">
+                    <input [(ngModel)]="_sms" pInputText placeholder="Mobile Number" [ngClass]="_errorSMS ? 'ng-invalid ng-dirty' : 'form-control'" type="text" id="sms" />
+                    <span *ngIf="_errorSMS" class="text-danger">Format: +&lt;country code&gt;&lt;mobile number&gt;</span>
+                  </div>
+                  <div class="email-col col-5">
+                    <input [(ngModel)]="_smsEmailId" pInputText placeholder="Email Id" [ngClass]="_errorSMSEmailId ? 'ng-invalid ng-dirty' : 'form-control'" type="email" id="smsEmailId" />
+                    <span *ngIf="_errorSMSEmailId" class="text-danger">Valid email id is required</span>
+                  </div>
+                </div>
+              </div>
+              <div class="email-col col-1 mt-2">
+                <button pButton pRipple icon="pi pi-plus" class="p-button-success ml-2" (click)="addSMSRecord($event)"></button>
+              </div>
+            </div>
+            <ng-container *ngIf="channel.channelAudiences">
+              <ng-container *ngFor="let aud of channel.channelAudiences">
+                <p-chip *ngIf="channel.name == 'SMS'" [label]="aud.name + '-' +aud.phoneNo" [pTooltip]="aud.email" icon="pi pi-user" styleClass="m-2 custom-chip" [removable]="true" (onRemove)="removeAudience($event, aud, channel)"></p-chip>
+              </ng-container>
+            </ng-container>
+            <div class="row">
+              <div class="col">
+                <input [(ngModel)]="channel.smsSubject" pInputText placeholder="SMS Subject" type="text" maxlength="11" />
+                <span *ngIf="_errorSMSSubject" class="text-danger">Subject cannot be blank and only alphanumeric characters are allowed</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <textarea pInputTextarea [(ngModel)]="channel.smsContent" placeholder="SMS Content" [rows]="4" [cols]="30" [autoResize]="false" [ngClass]="_errorSMSContent ? 'ng-invalid ng-dirty' : 'form-control'"></textarea>
+                <span *ngIf="_errorSMSContent" class="text-danger">SMS Content is required</span>
+              </div>
+            </div>
+          </div>
+          <div class="field" *ngIf="channel.name === 'Web'">
+            <ng-container *ngIf="channel.isEnabled">
+              <div class="flex-initial flex align-items-start justify-content-start border-round">
+                <div class="web-col" style="margin-left:-10px !important">
+                  <p-dropdown *ngIf="channel.name == 'Web'" appendTo="body" [options]="_notificationLookup" [(ngModel)]="_selectedNotificationLookup" optionLabel="name" placeholder="Select Channel option" [style]="{'min-width':'280px'}" (onChange)="selectChannelOption($event, channel)">
+                    <ng-template *ngIf="_selectedNotificationLookup" let-item pTemplate="selectedItem">
+                      <span>{{item.name}}</span>
+                    </ng-template>
+                    <ng-template let-notificationLookup pTemplate="item">
+                      <div pTooltip="{{notificationLookup.desc}}">
+                        <span>{{notificationLookup.name}}</span>
+                      </div>
+                    </ng-template>
+                  </p-dropdown>
+                </div>
+
+                <!--<div class="web-col">
+      <p-multiSelect [options]="_requiredContexts" [(ngModel)]="_selectedContexts"  [style]="{'min-width':'15rem'}" defaultLabel="Select Contexts" optionLabel="name" optionDisabled="inactive" selectedItemsLabel="{0} items selected"></p-multiSelect>
+    </div>-->
+              </div>
+              <div class="row" *ngIf="_selectedNotificationLookup && _selectedNotificationLookup.code == 'specific_users'">
+                <div class="col-11">
+                  <div class="row">
+                    <div class="email-col col-6">
+                      <input [(ngModel)]="_webFullName" pInputText placeholder="Firstname Lastname" [ngClass]="_errorWebFullName ? 'ng-invalid ng-dirty' : 'form-control'" type="text" id="webFullName" />
+                      <span *ngIf="_errorWebFullName" class="text-danger">Full name is required</span>
+                    </div>
+                    <div class="email-col col-6">
+                      <input [(ngModel)]="_webEmailId" pInputText placeholder="Unique User Id" [ngClass]="_errorWebEmailId ? 'ng-invalid ng-dirty' : 'form-control'" type="text" id="webEmailId" />
+                      <span *ngIf="_errorWebEmailId" class="text-danger">Unique Id is required</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="email-col col-1 mt-2">
+                  <button pButton pRipple icon="pi pi-plus" class="p-button-success ml-2" (click)="addWebRecord($event)"></button>
+                </div>
+              </div>
+              <ng-container *ngIf="channel.channelAudiences">
+                <ng-container *ngFor="let aud of channel.channelAudiences">
+                  <p-chip [label]="aud.email" [pTooltip]="aud.email" icon="pi pi-user" styleClass="m-2 custom-chip" [removable]="true" (onRemove)="removeAudience($event, aud, channel)"></p-chip>
+                </ng-container>
+              </ng-container>
+              <div class="row">
+                <div class="col-11">
+                  <input type="text" pInputText [(ngModel)]="channel.msgPropNameOrMsg" placeholder="Message or Message Property Name">
+                </div>
+              </div>
+              <div class="row">
+              <div class="col-3">
+                <p-checkbox [(ngModel)]="channel.isModuleAgnostic" [binary]="true" (click)="onWebContextPropChange($event, 'isModuleAgnostic', channel)" inputId="IsModuleAgnostic"></p-checkbox>
+                <label class="mx-2 -mb-2">All Modules</label>
+              </div>
+            </div>
+              <div class="row">
+                <div class="col-3">
+                  <p-checkbox [(ngModel)]="channel.isPersonAgnostic" (click)="onWebContextPropChange($event, 'isPersonAgnostic', channel)" [binary]="true" inputId="IsPersonAgnostic"></p-checkbox>
+                  <label class="mx-2 -mb-2">All Patients</label>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+
+          <!--<div class="field" *ngIf="channel.name !== 'Web'">
+    <div class="row">
+      <div class="email-col" style="width: 36rem" *ngIf="channel.name == 'Email'">
+        <input [(ngModel)]="_emailFullName" pInputText placeholder="Firstname Lastname" [ngClass]="_errorEmailFullName ? 'ng-invalid ng-dirty' : 'form-control'" type="text" id="emailFullName" />
+        <span *ngIf="_errorEmailFullName" class="text-danger">Full name is required</span>
+      </div>
+      <div class="email-col" style="width: 36rem" *ngIf="channel.name == 'Email'">
+        <input [(ngModel)]="_emailId" pInputText placeholder="Email Id" [ngClass]="_errorEmailId ? 'ng-invalid ng-dirty' : 'form-control'" type="text" id="emailId" />
+        <span *ngIf="_errorEmailId" class="text-danger">Email Id is required</span>
+      </div>
+      <div class="email-col" style="width: 24rem" *ngIf="channel.name == 'SMS'">
+        <input [(ngModel)]="_smsFullName" pInputText placeholder="Firstname Lastname" [ngClass]="_errorSMSFullName ? 'ng-invalid ng-dirty' : 'form-control'" type="text" id="smsFullName" />
+        <span *ngIf="_errorSMSFullName" class="text-danger">Full name is required</span>
+      </div>
+      <div class="email-col" style="width: 24rem" *ngIf="channel.name == 'SMS'">
+        <input [(ngModel)]="_sms" pInputText placeholder="Mobile Number" [ngClass]="_errorSMS ? 'ng-invalid ng-dirty' : 'form-control'" type="text" pattern="^(\+\d{1,3}[- ]?)?\d{10}$" id="sms" />
+        <span *ngIf="_errorSMS" class="text-danger">Mobile number is required</span>
+      </div>
+      <div class="email-col" style="width: 24rem" *ngIf="channel.name == 'SMS'">
+        <input [(ngModel)]="_smsEmailId" pInputText placeholder="Email Id" [ngClass]="_errorSMSEmailId ? 'ng-invalid ng-dirty' : 'form-control'" type="text" id="smsEmailId" />
+        <span *ngIf="_errorSMSEmailId" class="text-danger">Email Id is required</span>
+      </div>
+      <div class="email-col" style="width: 4rem" *ngIf="channel.name == 'Email'">
+        <button pButton pRipple icon="pi pi-plus" class="p-button-success ml-2" (click)="addEmailRecord($event)"></button>
+      </div>
+      <div class="email-col" style="width: 4rem" *ngIf="channel.name == 'SMS'">
+        <button pButton pRipple icon="pi pi-plus" class="p-button-success ml-2" (click)="addSMSRecord($event)"></button>
+      </div>
+    </div>
+    <ng-container *ngIf="channel.channelAudiences">
+      <ng-container *ngFor="let aud of channel.channelAudiences">
+        <p-chip *ngIf="channel.name == 'Email'" [label]="aud.email" [pTooltip]="aud.email" icon="pi pi-user" styleClass="m-2 custom-chip" [removable]="true" (onRemove)="removeAudience($event, aud, channel)"></p-chip>
+        <p-chip *ngIf="channel.name == 'SMS'" [label]="aud.name + '-' +aud.phoneNo" [pTooltip]="aud.email" icon="pi pi-user" styleClass="m-2 custom-chip" [removable]="true" (onRemove)="removeAudience($event, aud, channel)"></p-chip>
+      </ng-container>
+    </ng-container>
+  </div>
+  <div class="field" *ngIf="channel.name === 'Web'">
+    <div class="flex-initial flex align-items-end justify-content-end border-round">
+      <div class="row">
+        <div class="web-col" style="width:18rem">
+          <p-dropdown *ngIf="channel.name == 'Web'" appendTo="body" [options]="_notificationLookup" [(ngModel)]="_selectedNotificationLookup" optionLabel="name" placeholder="Select Channel option" [style]="{'min-width':'280px'}" (onChange)="selectChannelOption($event, channel)">
+            <ng-template *ngIf="_selectedNotificationLookup" let-item pTemplate="selectedItem">
+              <span>{{item.name}}</span>
+            </ng-template>
+            <ng-template let-notificationLookup pTemplate="item">
+              <div pTooltip="{{notificationLookup.desc}}">
+                <span>{{notificationLookup.name}}</span>
+              </div>
+            </ng-template>
+          </p-dropdown>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="_selectedNotificationLookup && _selectedNotificationLookup.code == 'specific_users'">
+      <div class="email-col" style="width: 36rem" *ngIf="channel.name == 'Web'">
+        <input [(ngModel)]="_webFullName" pInputText placeholder="Firstname Lastname" [ngClass]="_errorWebFullName ? 'ng-invalid ng-dirty' : 'form-control'" type="text" id="webFullName" />
+        <span *ngIf="_errorWebFullName" class="text-danger">Full name is required</span>
+      </div>
+      <div class="email-col" style="width: 36rem" *ngIf="channel.name == 'Web'">
+        <input [(ngModel)]="_webEmailId" pInputText placeholder="Email Id" [ngClass]="_errorWebEmailId ? 'ng-invalid ng-dirty' : 'form-control'" type="text" id="webEmailId" />
+        <span *ngIf="_errorWebEmailId" class="text-danger">Email Id is required</span>
+      </div>
+      <div class="email-col" style="width: 4rem" *ngIf="channel.name == 'Web'">
+        <button pButton pRipple icon="pi pi-plus" class="p-button-success ml-2" (click)="addWebRecord($event)"></button>
+      </div>
+    </div>
+    <ng-container *ngIf="channel.channelAudiences">
+      <ng-container *ngFor="let aud of channel.channelAudiences">
+        <p-chip *ngIf="channel.name == 'Web'" [label]="aud.email" [pTooltip]="aud.email" icon="pi pi-user" styleClass="m-2 custom-chip" [removable]="true" (onRemove)="removeAudience($event, aud, channel)"></p-chip>
+      </ng-container>
+    </ng-container>
+  </div>-->
+        </p-panel>
+      </div>
+      <div>
+        <span class="text-danger" *ngIf="!isChannelSelected">Please add at least one channel</span>
+      </div>
+      <div>
+        <span class="text-danger" *ngIf="!emailChannelAudience">Please add at least one Email channel audience</span>
+      </div>
+      <div>
+        <span class="text-danger" *ngIf="!smsChannelAudience">Please add at least one SMS channel audience</span>
+      </div>
+      <div>
+        <span class="text-danger" *ngIf="!specificUsersChannelAudience">Please add at least one specific user channel audience</span>
+      </div>
+      <div>
+        <span class="text-danger" *ngIf="!isChannelOptionSelected">Please select channel option</span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+      <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveNotification($event)"></button>
+    </ng-template>
+  </p-dialog>
+</div>
+<!--<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>-->
+

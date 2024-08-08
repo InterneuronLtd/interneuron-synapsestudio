@@ -1,0 +1,81 @@
+.container {
+  
+
+  .p-component, .p-component * {
+    box-sizing: border-box;
+    padding: 0.25rem 0.6rem !important;
+  }
+
+  .p-card .p-card-body {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .p-card {
+    box-sizing: border-box;
+    padding: 0.25rem 0.6rem !important;
+  }
+
+
+
+  .p-dropdown {
+    display: inline-flex;
+    cursor: pointer;
+    position: relative;
+    -webkit-user-select: none;
+    user-select: none;
+    width: 100% !important;
+  }
+
+  .classification-name {
+    width: 100%;
+  }
+}
+:host {
+  ::ng-deep {
+    .p-card {
+      background-color: #f8f9fa !important;
+      margin: 0.4rem !important;
+
+      .p-card-body {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        padding-top: 0px !important;
+        padding-bottom: 0px !important
+      }
+    }
+
+    .p-dropdown {
+      width: 100% !important;
+    }
+
+    .p-panel .p-panel-header {
+      border: 1px solid #dee2e6;
+      padding: 0.3rem 0.8rem !important;
+      background: #f8f9fa;
+      color: #495057;
+      border-top-right-radius: 3px;
+      border-top-left-radius: 3px;
+    }
+
+    .p-panel .p-panel-content {
+      padding: 0.1rem 0 !important;
+      border: 1px solid #dee2e6;
+      background: #ffffff;
+      color: #495057;
+      border-bottom-right-radius: 3px;
+      border-bottom-left-radius: 3px;
+      border-top: 0 none;
+    }
+
+    .ignore-input .p-chips-input-token {
+        padding: 0px !important;
+        height: 0px !important;
+    }
+  }
+}
+.card-bg-light {
+  background-color: #f8f9fa !important;
+  padding: 0.25rem 0.6rem !important;
+  margin: 5px !important;
+}

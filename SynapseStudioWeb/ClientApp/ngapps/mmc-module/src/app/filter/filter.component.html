@@ -1,0 +1,298 @@
+<!--BEGIN LICENSE BLOCK--> 
+<!--Interneuron Synapse
+
+Copyright(C) 2024  Interneuron Limited
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.If not, see<http://www.gnu.org/licenses/>. -->
+<!--END LICENSE BLOCK--> 
+<app-global-css></app-global-css>
+<div *ngIf="_canShow">
+
+  <div class="card">
+    <div class="card-header">
+      <label class="h5">
+        <i class="fa fa-list"></i> Formulary List
+      </label>
+      <label *ngIf="!_isdmdbrowser || _enableimportonly" class="h5 float-right mr-2"><a class="action-icon" href="javascript: void(0)" (click)="displayFileUploadInterface()" style="cursor:pointer; font-size:1.5rem; color:#000;" title="Upload"><i class="fas fa-file-upload"></i></a></label>
+      <label *ngIf="!_isdmdbrowser" class="h5 float-right mr-2"><a href="javascript:void(0)" class="action-icon" (click)="reImportMedication()" title="Re-import AMPs"><i class="fa fa-download"></i></a></label>
+      <label *ngIf="!_isdmdbrowser" class="h5 float-right mr-2"><a href="javascript:void(0)" class="action-icon" (click)="addCustomMedication()" title="Create New"><i class="fa fa-plus-square"></i></a></label>
+      <label *ngIf="!_isdmdbrowser" class="h5 float-right mr-2"><a href="javascript:void(0)" class="action-icon" (click)="displayHistory()" title="History"><i class="fa fa-history"></i></a></label>
+      <label class="h5 float-right mr-2">
+        <a href="javascript:void(0)" class="action-icon" title="Show / Hide Filter" (click)="toggleDisplayFilter()">
+          <i class="fas fa-filter text-900"></i>
+        </a>
+      </label>
+    </div>
+  </div>
+
+  <div *ngIf="isShowDiv" class="card container-fluid border-dotted border-3">
+    <!--<p-message severity="error" *ngIf="_showSearchCriteriaError" text="Please enter search text or select any filter criteria"></p-message>-->
+    <div>
+      <div class="row justify-content-left ">
+        <div class="col-9 pt-3 pb-1">
+          <span class="p-input-icon-right" style="width:100%">
+            <i class="pi pi-search"></i>
+            <input type="search" style="width:100%" class="py-2" pInputText [(ngModel)]="search" placeholder="Please enter therapy or dm+d code" (keyup)="onKeyUp($event)" [class.ng-invalid]="_showSearchCriteriaError" [class.ng-dirty]="_showSearchCriteriaError" (input)="searchInput()">
+          </span>
+        </div>
+      </div>
+      <div class="row justify-content-left">
+        <div class="col-3 pt-2 pb-1">
+          <p-dropdown [options]="productTypes" [(ngModel)]="selectedProductTypes" optionLabel="name" placeholder="Product Type" [style]="{'width':'100%'}" [showClear]="true" (onClear)="onClearProductTypes()" (onChange)="onChangeProductTypes($event)" [class.ng-invalid]="_showSearchCriteriaError" [class.ng-dirty]="_showSearchCriteriaError"></p-dropdown>
+        </div>
+        <div class="col-3 pt-2 pb-1">
+          <p-multiSelect *ngIf="selectedProductTypes && selectedProductTypes.code == 'AMP' && !_isdmdbrowser" [options]="recordStatuses" [(ngModel)]="selectedRecordStatuses" optionLabel="desc" optionValue="cd" placeholder="Record Status" [style]="{'width':'100%'}" (onChange)="onRecordStatusChange($event)"></p-multiSelect>
+        </div>
+        <div class="col-3 pt-2 pb-1">
+          <p-multiSelect *ngIf="selectedProductTypes && selectedProductTypes.code == 'AMP' && selectedRecordStatuses && selectedRecordStatuses.length > 0 && recStat.length == 1 && recStat[0]=='001' && !_isdmdbrowser" [options]="categories" [(ngModel)]="selectedCategories" optionLabel="name" placeholder="Category Difference" [style]="{'width':'100%'}"></p-multiSelect>
+        </div>
+      </div>
+      <div class="row justify-content-left" *ngIf="showFormularyStatus && !_isdmdbrowser">
+        <div class="col-3 pt-2 pb-1">
+          <p-multiSelect [options]="formularyStatuses" [(ngModel)]="selectedFormularyStatuses" optionLabel="desc" optionValue="cd" placeholder="Formulary Status" [style]="{'width':'100%'}" [class.ng-invalid]="_showSearchCriteriaError" [class.ng-dirty]="_showSearchCriteriaError" (onChange)="formularyStatusChange()"></p-multiSelect>
+        </div>
+        <!--<div class="col-2">
+
+        </div>
+        <div class="col-2">
+
+        </div>-->
+      </div>
+      <div class="row justify-content-left">
+        <div class="col-3 pt-2 pb-1">
+          <p-multiSelect [options]="flags" [(ngModel)]="selectedFlags" optionLabel="name" optionValue="code" placeholder="Flags" [style]="{'width':'100%'}" [class.ng-invalid]="_showSearchCriteriaError" [class.ng-dirty]="_showSearchCriteriaError" (onChange)="flagsChange()"></p-multiSelect>
+        </div>
+        <!--<div class="col-2">
+
+        </div>
+        <div class="col-2">
+
+        </div>-->
+      </div>
+      <div class="row justify-content-left" *ngIf="showHideArchivedCntrl && !_isdmdbrowser">
+        <div class="col-3 pb-1 text-nowrap">
+          <!--<p-checkbox [(ngModel)]="isHideArchived" label="Hide Archived" [binary]="true" inputId="binary" [style]="{'width':'100%'}"></p-checkbox>-->
+          <div class="grid">
+            <div class="col-2 mr-2">
+              <p-inputSwitch [(ngModel)]="isHideArchived"></p-inputSwitch>
+            </div>
+            <div class="col">
+              <label class="block">Hide Archived</label>
+            </div>
+          </div>
+        </div>
+        <!--<div class="col-2">
+
+        </div>-->
+        <!--<div class="col-2" style="text-align:right">
+          <button pButton type="button" style="padding-top:0.5rem !important;padding-right:0.5rem !important;padding-bottom:0.5rem !important;padding-left:0.5rem !important" (click)="applySettings()" label="Apply Settings"></button>
+        </div>-->
+      </div>
+    </div>
+    <div class="col-12 mb-2 -mt-2" style="text-align:right">
+      <button pButton type="button" class="p-button-rounded p-button-success" [disabled]="loading" (click)="applySettings()" label="Apply Settings"></button>
+    </div>
+
+  </div>
+  <div class="grid">
+    <div class="col text-left mx-2 mb-0 mt-2 pt-2 pb-0">
+      <span *ngIf="_selectAllProducts || _deselectAllProducts || _disableSelectAllProducts">
+        <!--<p-button *ngIf="_selectAllProducts" [disabled]="_disableSelectAllProducts" label="Select from all pages" title="Select from all pages" styleClass="p-button-link selectAllPagesBtn" (click)="onSelectAllProducts($event)" class="underline"></p-button>
+        <p-button *ngIf="_deselectAllProducts" [disabled]="_disableSelectAllProducts" label="Deselect from all pages" title="Deselect from all pages" styleClass="p-button-link selectAllPagesBtn" (click)="onDeSelectAllProducts($event)" class="underline"></p-button>-->
+        <a href="javascript: void(0)" *ngIf="_selectAllProducts" title="Select from all pages" (click)="onSelectAllProducts($event)" class=" selectAllPagesBtn underline {{_disableSelectAllProducts === true ? '' : 'cursor-pointer'}}">Select from all pages</a>
+        <a href="javascript: void(0)" *ngIf="_deselectAllProducts" title="Deselect from all pages" (click)="onDeSelectAllProducts($event)" class="selectAllPagesBtn underline {{_disableSelectAllProducts === true ? '' : 'cursor-pointer'}}">Deselect from all pages</a>
+        <p-progressSpinner [style]="{width: '20px', height: '20px'}" *ngIf="_showLoadingSelectAllProducts" strokeWidth="8" fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+      </span>
+    </div>
+    <div class="col text-right mx-2 mb-0 mt-2 pt-2 pb-0" *ngIf="!_isdmdbrowser">
+      <a href="javascript: void(0)" (click)="displayBulkEdit()" title="Bulk Edit" id="iBulkEdit" class="action-icon disabled">
+        <i class="fas fa-file-signature">
+          <span class="bulkedit-number">
+            <label id="lblBulkEditNumber">0</label>
+          </span>
+        </i>
+      </a>
+    </div>
+  </div>
+  <app-import [showFileUploader]="showFileUploadInterface" (closeDialog)="onImportDialogCloseDialog()"></app-import>
+  <ng-container *ngIf="!isInitLoad || _isdmdbrowser">
+    <p-treeTable [value]="treeNode" (onNodeExpand)="onNodeExpand($event)" [(selection)]="selectedNodes" selectionMode="checkbox"
+                 [scrollable]="true" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm" (onContextMenuSelect)="onContextMenuSelect($event, cm)"
+                 [resizableColumns]="false" columnResizeMode="expand" [loading]="loading">
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th class="px-2" style="width: 40px;" *ngIf="!_isdmdbrowser">
+            <p-checkbox [disabled]="_isSelectAllDisabled" [(ngModel)]="isCheckboxChecked" [binary]="true" (onChange)="onCheckboxChecked($event)"></p-checkbox>
+            <!--<button *ngIf="selectedProductTypes && (selectedProductTypes.code=='AMP' || selectedProductTypes.code=='VMP' || selectedProductTypes.code=='VTM')" pButton type="button" class="p-button-sm p-0" (click)="selectAllNodes()">
+              <i class="pi pi-check"></i>
+            </button>
+            <button pButton type="button" class="p-button-sm p-0  bg-white text-color" (click)="deselectAllCheckbox()">
+              <i class="pi pi-times"></i>
+            </button>-->
+          </th>
+          <th class="pl-2" style="width:500px;">
+            Name
+          </th>
+          <th class="pl-2" style="width:200px;" *ngIf="!_isdmdbrowser">
+            Status
+          </th>
+          <!--<th style="width:60px;">
+          </th>-->
+          <th class="p-0" style="width: 700px;" *ngIf="!_isdmdbrowser">
+            <ng-container *ngIf="_showDeltaInProgress">
+              <!--<button pButton  class="p-button p-button-primary">In Progress {{_showDeltaInProgress}}</button>-->
+              <div class="spinner-border text-primary w-1rem h-1rem" role="status">
+              </div>
+              <span class="visually-hidden text-primary font-italic ml-2 font-normal lowercase text-white">Computing...</span>
+              <!--<p-progressSpinner styleClass="w-1rem h-1rem" strokeWidth="8" fill="var(--primary-color)" aria-label="Computing..."></p-progressSpinner>-->
+            </ng-container>
+            <ng-container *ngIf="_showRefreshForDeltaCalcComplete && !_showDeltaInProgress">
+              <p-button label="Click to Refresh" styleClass="p-button-link p-0 text-white" (click)="refreshOnDeltaCalc($event)"></p-button>
+            </ng-container>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+        <tr>
+          <td class="px-2" style="width: 40px;" *ngIf="!_isdmdbrowser">
+            <p-checkbox [binary]="true" [(ngModel)]="rowData.isChecked" (onChange)="toggleRowSelection(rowNode)" [disabled]="rowData.isDisabled"></p-checkbox>
+          </td>
+          <td class="pl-2 changeCursor" style="width:500px;" [ttContextMenuRow]="rowNode">
+            <div>
+              <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+              <img src="{{rowData.imgSrc}}" [title]="rowData.imgTitle" />
+              <a href="javascript:void(0);" class="underline" (click)="onEdit(rowNode)" title="Edit">{{rowData.name}}</a>
+            </div>
+            <!--<div *ngIf="rowData.level == 'VTM'">
+              <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+              <img src="../img/Medicationtypenotdefined.svg" title="VTM" />
+              {{rowData.name}}
+            </div>
+            <div *ngIf="rowData.level == 'VMP'">
+              <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+              <img src="../img/Capsule.svg" title="VMP" />
+              {{rowData.name}}
+            </div>
+            <div *ngIf="rowData.level == 'AMP'">
+              <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+              <img src="../img/ActualMedicinalProduct.svg" title="AMP" />
+              {{rowData.name}}
+            </div>-->
+          </td>
+          <td class="pl-2" style="width:200px;" *ngIf="!_isdmdbrowser">
+            <p-dropdown [options]="statuses" [(ngModel)]="rowData.status.cd" optionLabel="desc" optionValue="cd" [style]="{'width':'180px'}" *ngIf="rowData.level == 'AMP'" appendTo="body" (onShow)="getOptions(rowData.status.cd)" (onChange)="changeStatus($event, rowData, rowData.status.orgCd)"></p-dropdown>
+          </td>
+
+          <!--<td class="pl-2" *ngFor="let col of columns; let i = index" [style.width]="i == 0? '500px': '180px'" [ttContextMenuRow]="rowNode">
+            <div *ngIf="rowData.level == 'VTM' && i == 0">
+              <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+              <img src="../img/Medicationtypenotdefined.svg" title="VTM" />
+              {{rowData[col.field]}}
+            </div>
+            <div *ngIf="rowData.level == 'VMP' && i == 0">
+              <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+              <img src="../img/Capsule.svg" title="VMP" />
+              {{rowData[col.field]}}
+            </div>
+            <div *ngIf="rowData.level == 'AMP' && i == 0">
+              <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+              <img src="../img/ActualMedicinalProduct.svg" title="AMP" />
+              {{rowData[col.field]}}
+            </div>
+            <p-dropdown [options]="statuses" [(ngModel)]="rowData[col.field].cd" optionLabel="desc" optionValue="cd" [style]="{'width':'180px'}" *ngIf="i == 1 && rowData.level == 'AMP'" appendTo="body" (onShow)="getOptions(rowData[col.field].cd)" (onChange)="changeStatus($event, rowData, rowData[col.field].orgCd)"></p-dropdown>
+          </td>-->
+          <!--<td style="width: 60px;">
+          <button class="p-button p-button-warning border-0 p-0 m-0" icon="pi pi-pencil" pButton pRipple (click)="onEdit(rowNode)" title="Edit">-->
+          <!--<img class="text-white" src="../img/edit_Icon.svg" title="Edit" />-->
+          <!--</button>
+          </td>-->
+          <td class="p-0" style="width: 700px;" *ngIf="!_isdmdbrowser">
+            <ng-container *ngIf="rowData.level == 'AMP' && rowData.status.cd == '001' && differenceData && differenceData[rowData.formularyid] != null">
+              <app-formulary-json-viewer [data]="differenceData[rowData.formularyid]" [sectionsToShow]="categoryDiffSelected"></app-formulary-json-viewer>
+            </ng-container>
+            <!--<div *ngIf="rowData.level == 'AMP' && differenceData">{{differenceData[rowData.formularyid]}}</div>-->
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage" let-columns>
+        <tr *ngIf="!loading">
+          <td [attr.colspan]="5">
+            No records found
+          </td>
+        </tr>
+        <tr *ngIf="loading">
+          <td [attr.colspan]="5">
+            Loading...
+          </td>
+        </tr>
+      </ng-template>
+    </p-treeTable>
+    <p-paginator #paginator [rows]="100" [totalRecords]="totalRecords" [showJumpToPageDropdown]="true" [showCurrentPageReport]="false" currentPageReportTemplate="{first} to {last} of {totalRecords} entries" (onPageChange)="paginate($event)"></p-paginator>
+
+    <p-contextMenu #cm [model]="items"></p-contextMenu>
+    <div *ngIf="_isdmdbrowser && _dmdVersion" class="my-2 p-2 surface-900 text-white">
+      dm+d data retrieved from <a target="_blank" href="https://isd.digital.nhs.uk/trud3/user/guest/group/0/pack/6/subpack/24/releases">TRUD:</a> release {{_dmdVersion}}, imported on {{_dmdVersionCreated  ? (_dmdVersionCreated | date : 'fullDate') : 'NA'}}.
+    </div>
+  </ng-container>
+
+
+
+  <p-dialog header="Are you sure?" [(visible)]="displayDialog" (onHide)="closeDialog()">
+    <!--<input *ngIf="showReason" type="text" pInputText [(ngModel)]="reason" placeholder="Reason">-->
+    <textarea *ngIf="showReason" cols="5" rows="3" [(ngModel)]="reason" pInputTextarea placeholder="Reason"></textarea>
+    <ng-template pTemplate="footer">
+      <p-button icon="pi pi-check" (click)="confirmChangeStatus()" label="Yes"></p-button>
+      <p-button icon="pi pi-times" (click)="rejectChangeStatus()" label="No"></p-button>
+    </ng-template>
+  </p-dialog>
+
+  <div class="col-md-12 text-center">
+    <a href="javascript:void(0);" title="Bulk Edit" id="iBulkEditFloat" role="button" (click)="displayBulkEdit()" class="disabled btn btn-light btn-lg back-to-top bg-primary text-white">
+      <i class="fas fa-file-signature">
+        <span class="bulkedit-number">
+          <label id="lblBulkEditNumberFloat">0</label>
+        </span>
+      </i>
+    </a>
+    <a id="back-to-top" href="#" class="btn btn-light btn-lg back-to-top bg-warning" role="button" title="Back to Top">
+      <i class="fas fa-chevron-up"></i>
+    </a>
+  </div>
+</div>
+<p-toast></p-toast>
+<p-toast position="bottom-center" key="bulkeditconfirm" (onClose)="onBulkEditConfirmClose()" [baseZIndex]="5000">
+  <ng-template let-message pTemplate="message">
+    <div class="flex flex-column" style="flex: 1">
+      <div class="text-center">
+        <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
+        <p class="m-3 mb-1 ">Click 'Change Status' to change status</p>
+        <p class="mt-1">Click 'Bulk Edit' to edit multiple properties</p>
+      </div>
+      <div class="grid p-fluid">
+        <div class="col-5">
+          <button type="button" pButton (click)="onBulkStatusChange()" label="Change Status" class="p-button-success text-sm"></button>
+        </div>
+        <div class="col-4">
+          <button type="button" pButton (click)="onBulkEdit()" label="Bulk Edit" class="p-button-success text-sm"></button>
+        </div>
+        <div class="col-3">
+          <button type="button" pButton (click)="onBulkEditConfirmClose()" label="Cancel" class="p-button-secondary text-sm"></button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-toast>
+<app-bulk-updatestatus [isVisible]="_showBulkUpdateStatusView" [data]="_bulkUpdateStatusData" (onHide)="onBulkStatusEditClose($event)"></app-bulk-updatestatus>

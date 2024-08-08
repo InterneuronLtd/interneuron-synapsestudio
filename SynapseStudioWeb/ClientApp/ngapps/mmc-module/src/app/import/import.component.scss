@@ -1,0 +1,14 @@
+:host ::ng-deep .p-fileupload {
+  .p-fileupload-content {
+    padding: 0.5rem 1rem !important;
+    font-size: 0.9rem !important;
+  }
+
+  .p-fileupload-row > div {
+    padding: 0.5rem 0 !important;
+  }
+
+  .p-fileupload-buttonbar {
+    text-align: right !important;
+  }
+}

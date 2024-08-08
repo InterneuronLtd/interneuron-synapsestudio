@@ -1,0 +1,81 @@
+<!--BEGIN LICENSE BLOCK--> 
+<!--Interneuron Synapse
+
+Copyright(C) 2024  Interneuron Limited
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.If not, see<http://www.gnu.org/licenses/>. -->
+<!--END LICENSE BLOCK--> 
+<p-dialog header="Bulk Status Edit" [(visible)]="_showEditDialog" [closable]="false" [closeOnEscape]="false" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false" (onHide)="onDialogHide()">
+  <ng-template pTemplate="header">
+    <span class="text-xl font-bold">Bulk Status Edit</span>
+  </ng-template>
+  <div class="p-3 m-2 shadow-4">
+    <div *ngIf="_errors && _errors.length" class="grid text-danger border-dotted">
+      <div class="m-1 p-1">Please correct the following errors</div>
+      <ul>
+        <li *ngFor="let error of _errors">{{error}}</li>
+      </ul>
+    </div>
+    <div class="grid m-2">
+      <div class="col-3">Current Status</div>
+      <div class="col-6">{{_currentStatus}}</div>
+    </div>
+    <div class="grid m-2 mb-10">
+      <div class="col-3">New status</div>
+      <div class="col-6">
+        <p-dropdown appendTo="body" [options]="_statuses" [(ngModel)]="_selectedStatus" optionLabel="name" (onChange)="onStatusSelectionChange($event)"></p-dropdown>
+      </div>
+      <div class="col-10">
+        <span *ngIf="_errorNewStatus" class="text-danger">Please select a Status</span>
+      </div>
+    </div>
+    <div class="grid m-2" *ngIf="_selectedStatus && (_selectedStatus.code === '004' || _selectedStatus.code === '006')">
+      <div class="col-3">Reason</div>
+      <div class="col-8">
+        <textarea pInputTextarea maxlength="255" [(ngModel)]="_archivedReason" [ngClass]="_errorArchivedReason ? 'ng-invalid ng-dirty' : 'form-control'"></textarea>
+      </div>
+      <div class="col-10">
+        <span *ngIf="_errorArchivedReason" class="text-danger">Reason is required</span>
+      </div>
+    </div>
+  </div>
+  
+  <ng-template pTemplate="footer">
+    <!--<p-button icon="pi pi-check" (click)="_showEditDialog = false" label="Update" styleClass="p-button-text"></p-button>-->
+    <button *ngIf="_isUpdating" pButton type="button" label="Updating..." [disabled]="true"></button>
+    <button *ngIf="!_isUpdating" pButton type="button" label="Cancel" (click)="onDialogHide()" class="p-button-secondary"></button>
+    <button *ngIf="!_isUpdating" pButton type="button" label="Update" [disabled]="_isUpdateDisabled" (click)="onUpdate($event)"></button>
+  </ng-template>
+</p-dialog>
+<p-toast position="bottom-center" key="needUserConfirm" (onClose)="onUserConfirmClose()" [baseZIndex]="500000">
+  <ng-template let-message pTemplate="message">
+    <div class="flex flex-column" style="flex: 1">
+      <div class="text-center">
+        <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
+        <p>{{_userConfirmMsg}}</p>
+        <p>Do you want to continue?</p>
+      </div>
+      <div class="grid p-fluid">
+        <div class="col-6">
+          <button type="button" pButton (click)="onUserConfirmYes()" label="Yes" class="p-button-success"></button>
+        </div>
+        <div class="col-6">
+          <button type="button" pButton (click)="onUserConfirmClose()" label="No" class="p-button-secondary"></button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-toast>

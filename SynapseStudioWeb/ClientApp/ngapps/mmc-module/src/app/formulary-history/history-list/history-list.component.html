@@ -1,0 +1,91 @@
+<!--BEGIN LICENSE BLOCK--> 
+<!--Interneuron Synapse
+
+Copyright(C) 2024  Interneuron Limited
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.If not, see<http://www.gnu.org/licenses/>. -->
+<!--END LICENSE BLOCK--> 
+<app-global-css></app-global-css>
+<div *ngIf="_canShow">
+  <p-dialog header="History" [(visible)]="_canShow" [modal]="true">
+    <p-table #dt1 [value]="_historyList" styleClass="p-datatable-gridlines" [lazy]="true" (onLazyLoad)="loadHistoryList($event)" responsiveLayout="scroll" stateStorage="session" stateKey="historylist-session" [paginator]="true" [rows]="10" [totalRecords]="_totalRecords" [loading]="_loading" [rowsPerPageOptions]="[10,25,50]">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Date/Time</th>
+          <th>User</th>
+          <th>Product Name & Code</th>
+          <th>Status</th>
+          <th style="width: 6rem">State</th>
+        </tr>
+        <tr>
+          <th>
+            <input pInputText type="date" (input)="dt1.filter($any($event.target)?.value, 'dateTime', 'equals')" [value]="$any(dt1.filters['dateTime'])?.value" placeholder="Select Date" class="p-column-filter">
+          </th>
+          <th>
+            <input pInputText type="text" (input)="dt1.filter($any($event.target)?.value, 'user', 'contains')" [value]="$any(dt1.filters['user'])?.value" placeholder="Search by User" class="p-column-filter">
+          </th>
+          <th>
+            <input pInputText type="text" (input)="dt1.filter($any($event.target)?.value, 'name', 'contains')" [value]="$any(dt1.filters['name'])?.value" placeholder="Search by Name" class="p-column-filter">
+          </th>
+          <th>
+            <p-columnFilter field="status" matchMode="equals" [showMenu]="false">
+              <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                <p-dropdown [ngModel]="value" [options]="_statuses" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
+                  <ng-template let-option pTemplate="item">
+                    <span [class]="'customer-badge status-' + option.value">{{option.label}}</span>
+                  </ng-template>
+                </p-dropdown>
+              </ng-template>
+            </p-columnFilter>
+          </th>
+          <th>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-history>
+        <tr>
+          <td>{{history.dateTime}}</td>
+          <td>{{history.user}}</td>
+          <td style="width:20rem; word-break:break-word;" [title]="history.formularyId">
+            {{history.name}} - ed.{{history.versionId}} ({{history.productType}})
+            <p class="opacity-70 text-sm font-italic mt-1 mb-0">Id: {{history.formularyId}}</p>
+          </td>
+          <td>{{history.status}}</td>
+          <td>
+            <!--<ng-container *ngIf="history.status ==='Deleted'">Deleted</ng-container>
+            <ng-container *ngIf="history.status ==='Draft'">Imported/Created</ng-container>-->
+            <ng-container *ngIf="(history.versionId == 1)">Imported/Created</ng-container>
+            <!--<button *ngIf="(history.status === '' || history.status ==='Active')" pButton pRipple type="button" icon="pi pi-book" title="View Properties Changed" class="p-button-rounded p-button-success" (click)="changeProps(history)"></button>-->
+            <!--<p-button *ngIf="(history.status === '' || history.status ==='Active')" styleClass="px-2 p-button-warning" title="View Properties Changed" (click)="changeProps(history)">-->
+            <p-button *ngIf="(history.versionId > 1)" styleClass="px-2 p-button-warning" title="View Properties Changed" (click)="changeProps(history)">
+              <ng-template pTemplate="content">
+                <img alt="logo" src="{{ buildUrl('/dist/mmc-module/assets/images/info_Icon.svg') }}" style="width: 1.5rem" />
+              </ng-template>
+            </p-button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="4">No records found.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-dialog>
+</div>
+
+
+

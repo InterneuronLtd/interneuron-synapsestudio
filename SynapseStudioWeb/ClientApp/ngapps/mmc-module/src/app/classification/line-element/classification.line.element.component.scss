@@ -1,0 +1,79 @@
+
+.container-line-el {
+  
+
+  .p-component, .p-component * {
+    box-sizing: border-box;
+    padding: 0.25rem 0.6rem !important;
+  }
+
+  .p-card .p-card-body {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .p-card {
+    box-sizing: border-box;
+    padding: 0.25rem 0.6rem !important;
+  }
+
+  .p-dropdown {
+    display: inline-flex;
+    cursor: pointer;
+    position: relative;
+    -webkit-user-select: none;
+    user-select: none;
+    width: 100% !important;
+  }
+
+  .classification-name {
+    width: 100%;
+  }
+}
+.btn-asclassification, .btn-asclassification-caret {
+  color: #495057;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  padding: 0.5rem;
+  text-align: left;
+
+  :hover :focus :active :active:focus .open > .dropdown-toggle.btn-asclassification {
+    color: #73879C;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    padding: 0.5rem;
+    text-align: left;
+  }
+}
+
+.btn-asclassification-dropdown-toggle-right::after {
+  float: right !important;
+  margin-top: 0.7em;
+}
+
+
+:host {
+  ::ng-deep {
+    .p-card {
+      background-color: #f8f9fa !important;
+      margin: 0.4rem !important;
+
+      .p-card-body {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        padding-top: 0px !important;
+        padding-bottom: 0px !important
+      }
+    }
+
+    .p-dropdown {
+      width: 100% !important;
+    }
+  }
+}
+
+    .card-bg-light {
+      background-color: #f8f9fa !important;
+      padding: 0.25rem 0.6rem !important;
+      margin: 5px !important;
+    }

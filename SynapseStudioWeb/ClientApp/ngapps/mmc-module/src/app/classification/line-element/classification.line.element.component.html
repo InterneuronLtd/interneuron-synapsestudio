@@ -1,0 +1,103 @@
+<!--BEGIN LICENSE BLOCK--> 
+<!--Interneuron Synapse
+
+Copyright(C) 2024  Interneuron Limited
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.If not, see<http://www.gnu.org/licenses/>. -->
+<!--END LICENSE BLOCK--> 
+<div class="container-line-el">
+  <ng-container *ngIf="groupedClassification">
+    <p-card styleClass="card-bg-light">
+      <div class="grid">
+        <div class="col-3" *ngIf="classificationtypes">
+          <p-dropdown [options]="classificationtypes" [(ngModel)]="groupedClassification.groupName" [disabled]="groupedClassification.isDisabled" optionLabel="Text" optionValue="Value"></p-dropdown>
+        </div>
+        <div class="col-6">
+          <div class="btn-group w-100" dropdown>
+            <button *ngIf="!groupedClassification.selectedCode" dropdownToggle  type="button" class="btn btn-outline-secondary dropdown-toggle btn-asclassification-dropdown-toggle-right btn-asclassification" aria-controls="dropdown-animated">
+              Please select
+              <span class="caret caret-right"></span>
+            </button>
+            <button *ngIf="groupedClassification.selectedCode" dropdownToggle type="button" class="btn btn-outline-secondary dropdown-toggle btn-asclassification-dropdown-toggle-right btn-asclassification" aria-controls="dropdown-animated">
+              <span style="{{groupedClassification.selectedCode.IsFromSibling === true ? 'font-style:italic': 'font-style:normal'}}">{{groupedClassification.selectedCode.AdditionalCode}} - {{groupedClassification.selectedCode.AdditionalCodeDesc}}</span>
+              <span class="caret"></span>
+            </button>
+            <!--<button id="button-split" type="button" dropdownToggle class="btn dropdown-toggle dropdown-toggle-split btn-asclassification-caret"
+                    aria-controls="dropdown-split">
+              <span class="caret"></span>
+              <span class="sr-only visually-hidden">Split button!</span>
+            </button>-->
+            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu w-100" role="menu" aria-labelledby="button-basic">
+              <li role="menuitem" style="color: rgb(115, 135, 156); font-size:1rem;font-family:Helvetica Neue,sans-serif; font-weight:400;" *ngFor="let association of groupedClassification.additionalCodes">
+                <span class="inline-block text-break" style="width:89%;">
+                  <a class="dropdown-item" href="#" (click)="selectAdditionalCode(association)">
+                    <span style="{{association.IsFromSibling === true ? 'font-style:italic': 'font-style:normal'}}">{{association.AdditionalCode}} - {{association.AdditionalCodeDesc}}</span>
+                  </a>
+                </span>
+                <span class="inline-block">
+                  <button *ngIf="(_allowAllDelete || ((association.Source !== 'DMD' && association.Source !== 'FDB') && (_productType === 'AMP' || _productType === '')))" pButton icon="pi pi-times" class="p-button-rounded p-button-danger p-button-text p-button-sm" style="font-size:0.5rem !important; vertical-align: baseline !important;" (click)="deleteAssociation({e: $event, item: association})"></button>
+                </span>
+              </li>
+            </ul>
+          </div>
+          <!--<p-dropdown [options]="groupedClassification.additionalCodes" [(ngModel)]="groupedClassification.selectedCode" (onChange)="selectAdditionalCode($event)">
+            <ng-template let-association pTemplate="selectedItem">
+              <div class="country-item">
+                <div>
+                  {{association.AdditionalCode}} - {{association.AdditionalCodeDesc}}
+                </div>
+              </div>
+            </ng-template>
+            <ng-template let-association pTemplate="item">
+              <div class="country-item">
+                <div>
+                  {{association.AdditionalCode}} - {{association.AdditionalCodeDesc}}
+                  <button *ngIf="(_allowAllDelete || ((association.Source !== 'DMD' && association.Source !== 'FDB') && (_productType === 'AMP' || _productType === '')))" pButton icon="pi pi-times" class="p-button-rounded p-button-danger p-button-text p-button-sm" style="font-size:0.5rem !important; vertical-align: baseline !important;" (click)="deleteAssociation({e: $event, item: association})"></button>
+                </div>
+              </div>
+            </ng-template>
+          </p-dropdown>-->
+        </div>
+        <!--<div class="col-1" *ngIf="groupedClassification.additonalPropsForGrp">
+          <i pBadge value="i" pTooltip="{{groupedClassification.additonalPropsForGrp}}" [escape]="false"></i>
+        </div>-->
+        <div class="col-3" *ngIf="groupedClassification.isDeletable">
+          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteElement({e: $event, groupedClassification})"></button>
+        </div>
+      </div>
+    </p-card>
+  </ng-container>
+</div>
+<p-toast position="bottom-center" key="c" (onClose)="onReject()" [baseZIndex]="500000">
+  <ng-template let-message pTemplate="message">
+    <div class="flex flex-column" style="flex: 1">
+      <div class="text-center">
+        <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
+        <h4>{{message.summary}}</h4>
+        <p>{{message.detail}}</p>
+      </div>
+      <div class="grid p-fluid">
+        <div class="col-6">
+          <button type="button" pButton (click)="onConfirm(message.data)" label="Yes" class="p-button-success"></button>
+        </div>
+        <div class="col-6">
+          <button type="button" pButton (click)="onReject()" label="No" class="p-button-secondary"></button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-toast>
+<!--<p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [baseZIndex]="10000000" rejectButtonStyleClass="p-button-outlined"></p-confirmDialog>-->

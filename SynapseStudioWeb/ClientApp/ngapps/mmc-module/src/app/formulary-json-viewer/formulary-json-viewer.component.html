@@ -1,0 +1,54 @@
+<!--BEGIN LICENSE BLOCK--> 
+<!--Interneuron Synapse
+
+Copyright(C) 2024  Interneuron Limited
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.If not, see<http://www.gnu.org/licenses/>. -->
+<!--END LICENSE BLOCK--> 
+<app-global-css></app-global-css>
+<div class="card p-0 m-0 shadow-3" *ngIf="_propsOnly && _propsOnly.length">
+  <div class="grid p-0 m-0">
+    <div class="col-12 p-0 m-0" *ngFor="let propKV of _propsOnly; let ind = index;">
+      <div class="grid px-2 m-0 {{ind % 2 == 0 ? 'surface-0' : 'surface-200'}}">
+        <div class="col-4 p-0 m-0 text-xs font-bold uppercase">{{propKV.name}}</div>
+        <div class="col-4 p-0 m-0">
+          <div *ngFor="let active of propKV.actives">
+            <div class="my-0 border-bottom-1 surface-border" *ngIf="active && active.includes('|'); else singlelineActive">
+              <ng-container *ngFor="let activeLn of active.split('|')">
+                <p class="mb-0 pl-1 text-sm text-green-500" style="word-break:break-word; white-space: break-spaces;">{{activeLn}}</p>
+              </ng-container>
+            </div>
+            <ng-template #singlelineActive>
+              <p class="mb-1 pr-1 text-sm text-green-500" style="word-break:break-word; white-space: break-spaces;">{{active}}</p>
+            </ng-template>
+          </div>
+        </div>
+        <div class="col-4 p-0 m-0">
+          <ng-container *ngFor="let draft of propKV.drafts">
+            <div class="my-0 border-bottom-1 surface-border" *ngIf="draft && draft.includes('|'); else singlelineDraft">
+              <ng-container *ngFor="let draftLn of draft.split('|')">
+                <p class="mb-0 pl-1 text-sm text-blue-500" style="word-break:break-word; white-space: break-spaces;">{{draftLn}}</p>
+              </ng-container>
+            </div>
+            <ng-template #singlelineDraft>
+              <p class="mb-1 pl-1 text-sm text-blue-500" style="word-break:break-word; white-space: break-spaces;">{{draft}}</p>
+            </ng-template>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

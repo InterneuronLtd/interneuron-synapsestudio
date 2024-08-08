@@ -1,0 +1,105 @@
+<!--BEGIN LICENSE BLOCK--> 
+<!--Interneuron Synapse
+
+Copyright(C) 2024  Interneuron Limited
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.If not, see<http://www.gnu.org/licenses/>. -->
+<!--END LICENSE BLOCK--> 
+<p-toast class="text-left"></p-toast>
+<p-confirmPopup styleClass="w-auto flex-wrap"></p-confirmPopup>
+<p-toast position="bottom-center" key="c" (onClose)="onUploadReject()" [baseZIndex]="5000">
+  <ng-template let-message pTemplate="message">
+    <div class="flex flex-column" style="flex: 1">
+      <div class="text-center">
+        <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
+        <h4>{{message.summary}}</h4>
+        <p>{{message.detail}}</p>
+      </div>
+      <div class="grid p-fluid">
+        <div class="col-6">
+          <button type="button" pButton (click)="onUploadConfirm()" label="Yes" class="p-button-success"></button>
+        </div>
+        <div class="col-6">
+          <button type="button" pButton (click)="onUploadReject()" label="No" class="p-button-secondary"></button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-toast>
+<p-overlayPanel #op>
+  <ng-template pTemplate>
+    <div class="w-30rem surface-900 text-white p-2" style="word-break: break-word;">{{_executionNote}}</div>
+  </ng-template>
+</p-overlayPanel>
+
+<p-dialog header="File Import" [(visible)]="_showFileUploader" (onHide)="hideDialog()" [style]="{width: '90vw'}">
+  <h5 class="text-left surface-900 uppercase text-white px-2 py-2 text-base">Sync DM+D file:</h5>
+  <div class="card">
+    <p-fileUpload #fileupload name="myfile[]" [customUpload]="true" [multiple]="true" (uploadHandler)="dmdUploader($event)">
+      <ng-template pTemplate="toolbar">
+        <div class="text-sm text-red-500 my-2 mx-1">Upload DM+D, DM+D Bonus and BNF Files</div>
+
+      </ng-template>
+
+    </p-fileUpload>
+  </div>
+  <div class="my-3">
+    <div *ngIf="_showProgressIndicator">
+      <p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
+    </div>
+    <div class="my-1 mx-2 text-right">
+      <i class="pi pi-refresh cursor-pointer" (click)="loadTasksStatusList($event)" title="Refresh All"></i>
+    </div>
+    <div class="card shadow-4">
+      <p-table [value]="_tasks" responsiveLayout="scroll" [paginator]="true" [rows]="10" [showCurrentPageReport]="false" [rowsPerPageOptions]="[1,10,25,50]">
+        <ng-template pTemplate="header">
+          <tr class="text-base">
+            <th class="surface-900 uppercase text-white p-2">Name</th>
+            <th class="surface-900 uppercase text-white p-2">FileName</th>
+            <th class="surface-900 uppercase text-white p-2">Steps</th>
+            <th class="surface-900 uppercase text-white p-2">Updated On</th>
+            <th class="surface-900 uppercase text-white p-2">Initiated By</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-task>
+          <tr>
+            <td class="text-sm py-1 uppercase" style="word-wrap:break-word;">{{task.name}}</td>
+            <td class="col-4 py-1 text-sm" style="word-wrap:break-word;">
+              <ul *ngIf="task.allFileNames">
+                <li *ngFor="let fileName of task.allFileNames">{{fileName}}</li>
+              </ul>
+            </td>
+            <td class="col-3 py-1">
+              <div class="flex flex-row flex-wrap">
+                <div class="text-sm" style="word-wrap:anywhere;">{{task.status}}</div>
+                <div class="ml-2" *ngIf="task.taskExecutionNote">
+                  <i class="pi pi-info-circle info cursor-pointer" title="click" (click)="showNote($event, task.taskExecutionNote)"></i>
+                </div>
+                <div class="mx-1 my-1 w-full" *ngIf="task.isStillRunning === true">
+                  <p-progressBar mode="indeterminate" [style]="{'height': '4px'}"></p-progressBar>
+                </div>
+              </div>
+            </td>
+            <td class="py-1 text-sm" style="word-wrap:break-word;">{{task.updatedtimestamp | date:'medium'}}</td>
+            <td class="py-1 text-sm" style="word-wrap:break-word;">{{task.createdby}}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</p-dialog>
+
+

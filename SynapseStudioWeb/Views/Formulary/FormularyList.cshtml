@@ -1,0 +1,76 @@
+﻿@model SynapseStudioWeb.Models.MedicinalMgmt.FormularyListFilterModel;
+
+@{
+    ViewData["Title"] = "FormularyList";
+}
+<link href="~/css/ui.fancytree.css" rel="stylesheet" class="skinswitcher">
+<link href="~/css/bootstrap-multiselect.css" rel="stylesheet" type="text/css" />
+<link href="~/lib/jqueryui-1.12.1/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="~/css/studio.bootstrap4-toggle.min.css" rel="stylesheet" />
+<link href="~/lib/fontawesome-free-5.14.0/css/all.min.css" rel="stylesheet" type="text/css" />
+<link href="~/lib/simplepagination/simplePagination.css" rel="stylesheet" type="text/css" />
+<link href="~/lib/jquery-contextmenu/jquery.contextMenu.min.css" rel="stylesheet" type="text/css" />
+<link href="~/lib/fontawesome-free-5.14.0/css/all.min.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="~/lib/simplepagination/jquery.simplePagination.js"></script>
+
+<link href="~/css/studio.formulary-list.css" rel="stylesheet" type="text/css" />
+
+<div class="formulary-list">
+    <div class="row">
+        <div class="col-md-12">
+            @if (string.Compare(Environment.GetEnvironmentVariable("settings_UseAsDMDBrowser") ?? "false", "true", true) != 0)
+            {
+                <h4>Medication Management</h4>
+            }
+            @if (string.Compare(Environment.GetEnvironmentVariable("settings_UseAsDMDBrowser") ?? "false", "true", true) == 0)
+            {
+                <h4>Interneuron DM+D Browser</h4>
+            }
+        </div>
+    </div>
+
+
+    @await Html.PartialAsync("_FormularyEditContainer")
+
+    @await Html.PartialAsync("_FormularyImportMedication")
+
+    @await Html.PartialAsync("_FormularyDeleteStatus")
+
+    @await Html.PartialAsync("_FormularyChangeStatus")
+
+    @await Html.PartialAsync("_FormularyHistoryContainer")
+
+    <div id="pnlBulkEditSelectorContainer" style="display:none"></div>
+
+    <div id="pnlCreateCustomMedContainer" style="display:none"></div>
+
+    <formulary-history-el id="historyList"></formulary-history-el>
+    
+    <filter-el id="filterEl" isdmdbrowser="@Environment.GetEnvironmentVariable("settings_UseAsDMDBrowser")" enableimportonly="@Environment.GetEnvironmentVariable("settings_EnableImportOnly")"></filter-el>
+   
+</div>
+
+@*<script src="~/lib/jquery-3.5.1/jquery.min.js"></script>*@
+<script src="~/lib/jqueryui-1.12.1/jquery-ui.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+<script src="~/lib/jquery-contextmenu/jquery.contextMenu.min.js"></script>
+<script src="~/Scripts/jquery.fancytree.js"></script>
+<script src="~/Scripts/jquery.fancytree.dnd5.js"></script>
+<script src="~/Scripts/jquery.fancytree.edit.js"></script>
+<script src="~/Scripts/jquery.fancytree.glyph.js"></script>
+<script src="~/Scripts/jquery.fancytree.table.js"></script>
+<script src="~/Scripts/jquery.fancytree.wide.js"></script>
+@*<script src="~/Scripts/jquery.fancytree.grid.js"></script>*@
+<script src="~/Scripts/jquery.fancytree.contextmenu.js"></script>
+<script src="~/Scripts/datatables.min.js"></script>
+
+<script type="text/javascript" src="~/js/formulary_new.list.js?v=@string.Format("{0}", DateTime.Now.Ticks)"></script>
+<script type="text/javascript" src="~/js/formulary.list.contextmenubuilder.js?v=@string.Format("{0}", DateTime.Now.Ticks)"></script>
+<script type="text/javascript" src="~/js/formulary.save.js?v=@string.Format("{0}", DateTime.Now.Ticks)"></script>
+<script type="text/javascript" src="~/js/formulary.medication.js?v=@string.Format("{0}", DateTime.Now.Ticks)"></script>
+<script type="text/javascript" src="~/js/formulary.medication.contextmenubuilder.js?v=@string.Format("{0}", DateTime.Now.Ticks)"></script>
+@*<script type="text/javascript" src="~/Scripts/bootstrap-multiselect.js"></script>
+*@<script src="~/js/studio.bootstrap4-toggle.js?v=@string.Format("{0}", DateTime.Now.Ticks)"></script>
+<script src="~/dist/mmc-module/polyfills.js"></script>
+<script src="~/dist/mmc-module/main.js"></script>

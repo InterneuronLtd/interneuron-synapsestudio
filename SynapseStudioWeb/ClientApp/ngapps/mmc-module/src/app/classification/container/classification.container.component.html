@@ -1,0 +1,78 @@
+<!--BEGIN LICENSE BLOCK--> 
+<!--Interneuron Synapse
+
+Copyright(C) 2024  Interneuron Limited
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.If not, see<http://www.gnu.org/licenses/>. -->
+<!--END LICENSE BLOCK--> 
+<app-global-css></app-global-css>
+<div class="container">
+  <p-panel>
+    <ng-template pTemplate="header">
+      <div class="h6">
+        Classification Codes
+      </div>
+    </ng-template>
+    <ng-template pTemplate="icons">
+      <button *ngIf="_canAddNew && !_isdmdbrowser" pButton class="p-panel-header-icon p-link" title="Add New" (click)="showDialogToAddNew($event)">
+        <span class="fa fa-plus"></span>
+      </button>
+    </ng-template>
+    <ng-container *ngIf="_groupedClassificationCodes && _groupedClassificationCodes.length > 0">
+      <ng-container *ngFor="let classCode of _groupedClassificationCodes">
+        <classification-line-el [classificationtypes]="classificationtypes" [productType]="_productType" [allowAllDelete]="_allowAllDelete" [groupedClassification]="classCode" (selectDefaultAdditionalCodeEvent)="selectAdditionalCode($event)" (deleteElementEvent)="deleteElement($event)" (deleteAssociationEvent)="deleteAssociation($event)"></classification-line-el>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="_showAddNewFields">
+      <p-card styleClass="card-bg-light">
+        <div class="grid">
+          <div class="col-3" *ngIf="classificationtypes">
+            <!--<input type="text" pInputText [(ngModel)]="classCode.groupName" class="classification-name" />-->
+            <p-dropdown [options]="classificationtypes" [(ngModel)]="_newClassificationTypeSelected" optionLabel="Text" optionValue="Value"></p-dropdown>
+          </div>
+          <div class="col-2 mr-3" *ngIf="!_showNewClassificationCodeAsReadOnly">
+            <!--<input type="text" pInputText [(ngModel)]="_newClassificationCode" style="height:100%;" placeholder="Enter Classification value" required>-->
+            <p-autoComplete  [(ngModel)]="_newClassificationCode" [suggestions]="_classificationSuggestions" (completeMethod)="searchClassification($event)" field="name" (onSelect)="selectClassfication($event)" [showClear]="true" placeholder="Search code\name or enter code manually" [minLength]="2">
+              <!--<ng-template let-classification pTemplate="item">
+              <p-chip label="{{classification.name}}" icon="pi pi-microsoft" [removable]="true"></p-chip>
+              </ng-template>-->
+            </p-autoComplete>
+          </div>
+          <div class="col-5" *ngIf="_showNewClassificationCodeAsReadOnly">
+            <!--<p-chip label="{{_newClassificationCode.name}}" [removable]="true" (onRemove)="removeNewClassificationCodeAsReadOnly($event)"></p-chip>-->
+            <p-chips class="ignore-input" [(ngModel)]="_newClassificationCodeNemeAsArr" (onRemove)="removeNewClassificationCodeAsReadOnly($event)" [max]="1">
+              <ng-template let-item pTemplate="item">
+                {{item}}
+              </ng-template>
+            </p-chips>
+          </div>
+          <div class="col-3 ml-6" *ngIf="!_hideClassificationDesc">
+            <input type="text" pInputText [(ngModel)]="_newClassificationDesc" style="height:100%;" class="w-12" placeholder="Enter Description" required>
+          </div>
+          <div class="col-2 m-1 p-1 ml-8">
+            <!--<p-button icon="pi pi-times" title="Cancel" class="p-button-rounded p-button-danger p-button-text" (click)="cancelNewCodesSave($event)"></p-button>
+            <p-button icon="pi pi-check" title="Add" class="p-button-rounded p-button-text" [style]="{'margin-left': '.5em'}" (click)="saveNewCodes($event)"></p-button>-->
+            <button pButton pRipple type="button" title="Cancel" icon="pi pi-times" class="p-button-rounded p-button-danger p-button-outlined" (click)="cancelNewCodesSave($event)"></button>
+            <button pButton pRipple type="button" title="Add" icon="pi pi-check" class="p-button-rounded p-button-outlined" [style]="{'margin-left': '.5em'}" (click)="saveNewCodes($event)"></button>
+          </div>
+        </div>
+      </p-card>
+    </ng-container>
+  </p-panel>
+</div>
+<p-toast></p-toast>
+
+

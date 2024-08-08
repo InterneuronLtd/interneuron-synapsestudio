@@ -1,0 +1,43 @@
+:host ::ng-deep .p-chip.custom-chip {
+  background: #689F38; /*var(--green-600);*/
+  color: var(--primary-color-text);
+  font-size: 0.9rem !important;
+  margin: 0.5rem 0 0 0.5rem !important;
+}
+
+:host ::ng-deep #custom-panel-content .p-panel-header {
+  background: var(--bluegray-600) !important;
+  color: var(--primary-color-text) !important;
+}
+
+:host ::ng-deep .p-panel-header-icon {
+  color: var(--primary-color-text) !important;
+}
+
+:host ::ng-deep .p-panel-header-icon.delete-btn {
+  background-color: var(--red-800) !important;
+}
+
+:host ::ng-deep #custom-panel-content .p-panel .p-panel-content {
+  padding: 0 !important;
+}
+
+:host ::ng-deep #custom-panel-content .p-panel.p-panel-toggleable .p-panel-header {
+    padding: 0.3rem 1rem !important;
+}
+
+:host ::ng-deep #custom-table .p-datatable .p-datatable-header {
+  color: #495057;
+  border: 1px solid #e9ecef;
+  border-width: 1px 0 1px 0;
+  padding: 1rem;
+  font-weight: 600;
+  margin: 1rem 0 0.5rem 0 !important;
+  box-shadow: 0 4px 10px #00000008,0 0 2px #0000000f,0 2px 6px #0000001f !important;
+}
+
+:host ::ng-deep #custom-table .p-datatable > .p-datatable-wrapper {
+  /* overflow: auto; */
+  overflow-y: auto;
+  overflow-x: hidden;
+}

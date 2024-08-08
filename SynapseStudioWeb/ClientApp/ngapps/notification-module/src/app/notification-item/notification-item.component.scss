@@ -1,0 +1,41 @@
+:host ::ng-deep .p-chip.custom-chip {
+  background: var(--cyan-600);
+  color: var(--primary-color-text);
+  font-size: 0.9rem !important;
+  margin: 0.5rem 0 0 0.5rem !important;
+}
+
+:host ::ng-deep .p-panel-header {
+  background: var(--bluegray-900) !important;
+  color: var(--primary-color-text) !important;
+}
+:host ::ng-deep .p-panel-header-icon {
+  color: var(--primary-color-text) !important;
+}
+:host ::ng-deep .p-panel-header-icon.check-btn {
+  background-color: var(--green-800) !important;
+}
+
+:host ::ng-deep .p-panel-header-icon.times-btn {
+  background-color: var(--red-800) !important;
+}
+
+:host ::ng-deep .email-col {
+  flex-grow: 1;
+  flex-basis: auto;
+  padding: .5rem;
+}
+
+:host ::ng-deep .web-col {
+  flex-basis: auto;
+  padding: .5rem;
+}
+
+.p-editor-custom {
+    height: 14rem !important;
+}
+/*
+*:host ::ng-deep .p-autocomplete-token {
+  background: var(--primary-color) !important;
+  color: var(--primary-color-text) !important;
+}*/

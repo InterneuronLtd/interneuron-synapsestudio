@@ -1,0 +1,133 @@
+:host ::ng-deep .p-treetable {
+  .p-treetable-scrollable-header-box {
+    padding-right: 0 !important;
+  }
+
+  .p-treetable-scrollable-header-table {
+    border: 1px solid #dee2e6;
+    font-family: "Helvetica Neue", Helvetica, sans-serif, Arial !important;
+    font-size: 0.9rem !important;
+
+    thead > tr > th {
+      border: 1px solid #fff;
+      background: #000 !important;
+      color: #ffffff !important;
+      text-align: left !important;
+      text-transform: uppercase;
+      padding: 0.5rem !important;
+    }
+  }
+
+  .p-treetable-scrollable-body > table {
+    border: 1px solid #dee2e6;
+    font-family: "Helvetica Neue", Helvetica, sans-serif, Arial !important;
+    font-size: 0.9rem !important;
+
+    td {
+      border: 1px solid #dee2e6;
+      padding: 0.5rem !important;
+
+      .p-treetable-toggler {
+        width: 1rem !important;
+        height: 1rem !important;
+
+        i {
+          font-size: .7rem !important;
+          font-weight: bolder !important;
+          color: #000 !important;
+        }
+      }
+
+      img {
+        height: 20px !important;
+        width: 20px !important;
+      }
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+  }
+}
+
+:host ::ng-deep {
+  .p-contextmenu .p-menuitem-link .p-menuitem-text {
+    color: #495057;
+    font-size: 0.8rem !important;
+    font-family: "Helvetica Neue", Helvetica, sans-serif, Arial !important;
+  }
+
+  .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+    color: #495057;
+    padding: 0.3rem 0.5rem !important;
+    font-size: 0.9rem !important;
+    font-family: "Helvetica Neue", Helvetica, sans-serif, Arial !important;
+  }
+
+  .p-dropdown .p-dropdown-label.p-placeholder {
+    color: #495057;
+    padding: 0.3rem 0.5rem !important;
+    font-size: 0.9rem !important;
+    font-family: "Helvetica Neue", Helvetica, sans-serif, Arial !important;
+  }
+
+  .p-dropdown.p-dropdown-clearable .p-dropdown-label {
+    color: #495057;
+    padding: 0.3rem 0.5rem !important;
+    font-size: 0.9rem !important;
+    font-family: "Helvetica Neue", Helvetica, sans-serif, Arial !important;
+  }
+
+  p-multiselect .p-multiselect-label.p-placeholder {
+    color: #495057;
+    padding: 0.3rem 0.5rem !important;
+    font-size: 0.9rem !important;
+    font-family: "Helvetica Neue", Helvetica, sans-serif, Arial !important;
+  }
+
+  .p-multiselect .p-multiselect-label {
+    color: #495057;
+    padding: 0.3rem 0.5rem !important;
+    font-size: 0.9rem !important;
+    font-family: "Helvetica Neue", Helvetica, sans-serif, Arial !important;
+  }
+
+  .p-multiselect-panel .p-multiselect-items .p-multiselect-item {
+    color: #495057;
+    padding: 0.3rem 0.5rem !important;
+    font-size: 0.9rem !important;
+    font-family: "Helvetica Neue", Helvetica, sans-serif, Arial !important;
+  }
+
+  .p-inputswitch .p-inputswitch-slider {
+    background: var(--red-600);
+    transition: background-color .2s,color .2s,border-color .2s,box-shadow .2s;
+    border-radius: 30px;
+  }
+
+  .p-inputswitch:not(.p-disabled):hover .p-inputswitch-slider {
+    background: var(--red-600);
+  }
+
+  .p-inputswitch.p-inputswitch-checked:not(.p-disabled):hover .p-inputswitch-slider {
+    background: var(--green-500);
+  }
+
+  .p-inputswitch.p-focus .p-inputswitch-slider {
+    box-shadow: 0 0 0 0.2rem var(--green-500) !important;
+  }
+
+  .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+    background: var(--green-500);
+  }
+}
+
+
+.changeCursor {
+  cursor: pointer;
+}
+
+.selectAllPagesBtn {
+  padding-bottom: 0px !important;
+}
+
