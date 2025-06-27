@@ -101,7 +101,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <h3>Underlying List</h3>
                         <div class="row">
                             <div class="col-md-12">
-                                <asp:panel id="fgList" runat="server" class="form-group">
+                                <asp:panel id="fgList" runat="server">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <asp:Label ID="lblList" runat="server" CssClass="control-label" for="ddlList" Text="Select Underlying List" Font-Bold="true"></asp:Label>
@@ -109,14 +109,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                     </div>
 
                                     <asp:Label ID="errList" runat="server"></asp:Label>
-                                    <asp:DropDownList ID="ddlList" runat="server" CssClass="form-control input-lg" AutoPostBack="true" OnSelectedIndexChanged="ddlList_SelectedIndexChanged"></asp:DropDownList>
+                                    <asp:DropDownList ID="ddlList" runat="server" CssClass="form-select form-select-lg mb-3" AutoPostBack="true" OnSelectedIndexChanged="ddlList_SelectedIndexChanged"></asp:DropDownList>
                                 </asp:panel>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-12">
-                                <asp:panel id="fgListLocationField" runat="server" class="form-group">
+                                <asp:panel id="fgListLocationField" runat="server">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <asp:Label ID="lblListLocationField" runat="server" CssClass="control-label" for="ddlListLocationField" Text="Select Location field from the underlying list" Font-Bold="true"></asp:Label>
@@ -124,7 +124,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                     </div>
 
                                     <asp:Label ID="errListLocationField" runat="server"></asp:Label>
-                                    <asp:DropDownList ID="ddlListLocationField" runat="server" CssClass="form-control input-lg"></asp:DropDownList>
+                                    <asp:DropDownList ID="ddlListLocationField" runat="server" CssClass="form-select form-select-lg mb-3"></asp:DropDownList>
                                 </asp:panel>
                             </div>
                         </div>
@@ -133,7 +133,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <h3>Underlying Baseview for Ward Information</h3>
                         <div class="row">
                             <div class="col-md-12">
-                                <asp:panel id="fgBaseViewNamespace" runat="server" class="form-group">
+                                <asp:panel id="fgBaseViewNamespace" runat="server">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <asp:Label ID="lblBaseViewNamespace" runat="server" CssClass="control-label" for="ddlBaseViewNamespace" Text="Select Baseview Namespace" Font-Bold="true"></asp:Label>
@@ -141,14 +141,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                     </div>
 
                                     <asp:Label ID="errBaseViewNamespace" runat="server"></asp:Label>
-                                    <asp:DropDownList ID="ddlBaseViewNamespace" runat="server" CssClass="form-control input-lg" AutoPostBack="true" OnSelectedIndexChanged="ddlBaseViewNamespace_SelectedIndexChanged"></asp:DropDownList>
+                                    <asp:DropDownList ID="ddlBaseViewNamespace" runat="server" CssClass="form-select form-select-lg mb-3" AutoPostBack="true" OnSelectedIndexChanged="ddlBaseViewNamespace_SelectedIndexChanged"></asp:DropDownList>
                                 </asp:panel>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-12">
-                                <asp:panel id="fgBaseView" runat="server" class="form-group">
+                                <asp:panel id="fgBaseView" runat="server">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <asp:Label ID="lblBaseView" runat="server" CssClass="control-label" for="ddlBaseView" Text="Select Baseview" Font-Bold="true"></asp:Label>
@@ -156,14 +156,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                     </div>
 
                                     <asp:Label ID="errBaseView" runat="server"></asp:Label>
-                                    <asp:DropDownList ID="ddlBaseView" runat="server" CssClass="form-control input-lg" AutoPostBack="true" OnSelectedIndexChanged="ddlBaseView_SelectedIndexChanged"></asp:DropDownList>
+                                    <asp:DropDownList ID="ddlBaseView" runat="server" CssClass="form-select form-select-lg mb-3" AutoPostBack="true" OnSelectedIndexChanged="ddlBaseView_SelectedIndexChanged"></asp:DropDownList>
                                 </asp:panel>
                             </div>
                         </div>                        
 
                         <div class="row">
                             <div class="col-md-12">
-                                <asp:panel id="fgLocationIDField" runat="server" class="form-group">
+                                <asp:panel id="fgLocationIDField" runat="server">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <asp:Label ID="lblLocationIDField" runat="server" CssClass="control-label" for="ddlLocationIDField" Text="Select Location ID field from Baseview" Font-Bold="true"></asp:Label>                                            
@@ -171,7 +171,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                     </div>
 
                                     <asp:Label ID="errLocationIDField" runat="server"></asp:Label>
-                                    <asp:DropDownList ID="ddlLocationIDField" runat="server" CssClass="form-control input-lg" ></asp:DropDownList>
+                                    <asp:DropDownList ID="ddlLocationIDField" runat="server" CssClass="form-select form-select-lg mb-3" ></asp:DropDownList>
                                 </asp:panel>
                             </div>
                         </div>
@@ -183,7 +183,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                         <div class="row">
                             <div class="col-md-12">
-                                <asp:panel id="fgHeading" runat="server" class="form-group">
+                                <asp:panel id="fgHeading" runat="server">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <asp:Label ID="lblHeading" runat="server" CssClass="control-label" for="ddlHeading" Text="Select Heading Field" Font-Bold="true"></asp:Label>
@@ -191,14 +191,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                     </div>
 
                                     <asp:Label ID="errHeading" runat="server"></asp:Label>
-                                    <asp:DropDownList ID="ddlHeading" runat="server" CssClass="form-control input-lg"></asp:DropDownList>
+                                    <asp:DropDownList ID="ddlHeading" runat="server" CssClass="form-select form-select-lg mb-3"></asp:DropDownList>
                                 </asp:panel>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-12">
-                                <asp:panel id="fgTopLeftField" runat="server" class="form-group">
+                                <asp:panel id="fgTopLeftField" runat="server">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <asp:Label ID="lblTopLeftField" runat="server" CssClass="control-label" for="ddlTopLeftField" Text="Select Top Left Field from Baseview" Font-Bold="true"></asp:Label>
@@ -206,14 +206,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                     </div>
 
                                     <asp:Label ID="errTopLeftField" runat="server"></asp:Label>
-                                    <asp:DropDownList ID="ddlTopLeftField" runat="server" CssClass="form-control input-lg" AutoPostBack="true" OnSelectedIndexChanged="ddlTopLeftField_SelectedIndexChanged"></asp:DropDownList>
+                                    <asp:DropDownList ID="ddlTopLeftField" runat="server" CssClass="form-select form-select-lg mb-3" AutoPostBack="true" OnSelectedIndexChanged="ddlTopLeftField_SelectedIndexChanged"></asp:DropDownList>
                                 </asp:panel>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-12">
-                                <asp:panel id="fgTopRightField" runat="server" class="form-group">
+                                <asp:panel id="fgTopRightField" runat="server">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <asp:Label ID="lblTopRightField" runat="server" CssClass="control-label" for="ddlTopRightField" Text="Select Top Right Field from Baseview" Font-Bold="true"></asp:Label>
@@ -221,7 +221,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                     </div>
 
                                     <asp:Label ID="errTopRightField" runat="server"></asp:Label>
-                                    <asp:DropDownList ID="ddlTopRightField" runat="server" CssClass="form-control input-lg" AutoPostBack="true" OnSelectedIndexChanged="ddlTopRightField_SelectedIndexChanged"></asp:DropDownList>
+                                    <asp:DropDownList ID="ddlTopRightField" runat="server" CssClass="form-select form-select-lg mb-3" AutoPostBack="true" OnSelectedIndexChanged="ddlTopRightField_SelectedIndexChanged"></asp:DropDownList>
                                 </asp:panel>
                             </div>
                         </div>

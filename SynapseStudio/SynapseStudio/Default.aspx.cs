@@ -65,7 +65,7 @@ namespace SynapseStudio
             string userType = "";
             try
             {
-                userType = Session["userType"].ToString().ToLower();
+                userType = Convert.ToString(Session["userType"]).ToLower();
             } catch { }
 
             BindGrids();

@@ -65,7 +65,7 @@ namespace SynapseStudio
             string userType = "";
             try
             {
-                userType = Session["userType"].ToString().ToLower();
+                userType = Convert.ToString(Session["userType"]).ToLower();
             }
             catch { }
 
@@ -88,7 +88,7 @@ namespace SynapseStudio
             this.dataGridDatabaseActivity.DataBind();
 
             //Replication Status
-            string replStatusSQL = "select pid, usename, client_addr, client_port, backend_start, sent_location, write_location, flush_location, replay_location from pg_stat_replication;";
+            string replStatusSQL = "select pid, usename, client_addr, client_port, backend_start, sent_lsn, write_lsn, flush_lsn, replay_lsn from pg_stat_replication;";
 
             DataSet dsReplStatus = DataServices.DataSetFromSQL(replStatusSQL, paramList, dbConnection: SynapseHelpers.DBConnections.PGSQLConnectionPostgresDB);
             DataTable dtReplStatus = dsReplStatus.Tables[0];

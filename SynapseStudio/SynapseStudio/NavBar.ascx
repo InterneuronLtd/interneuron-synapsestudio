@@ -23,12 +23,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NavBar.ascx.cs" Inherits="SynapseStudio.NavBar" %>
 
-<ul class="nav navbar-nav navbar-right navbar-user">   
-    <li class="dropdown user-dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>&nbsp;<asp:Label ID="lblUserFullName" runat="server"></asp:Label><b class="caret"></b></a>
+<ul class="navbar-nav navbar-right">   
+    <li class="nav-item dropdown">
+        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-user"></i>&nbsp;<asp:Label ID="lblUserFullName" runat="server"></asp:Label></a>
         <ul class="dropdown-menu">
-            <li><a href="logout.aspx"><i class="fa fa-power-off"></i>&nbsp;Log Out</a></li>
-
+            <li><a class="dropdown-item" href="logout.aspx"><i class="fa fa-power-off"></i>&nbsp;Log Out</a></li>
         </ul>
     </li>
 </ul>

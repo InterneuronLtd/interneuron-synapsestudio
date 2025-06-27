@@ -1,7 +1,7 @@
 //BEGIN LICENSE BLOCK 
 //Interneuron Synapse
 
-//Copyright(C) 2024  Interneuron Limited
+//Copyright(C) 2025  Interneuron Limited
 
 //This program is free software: you can redistribute it and/or modify
 //it under the terms of the GNU General Public License as published by
@@ -312,11 +312,10 @@ export class ClassificationContainerComponent implements OnInit {
   }
 
   selectClassfication(event: any) {
-    if (!event || !event.code) return;
+    if (!event || !event.value || !event.value.code) return;
     //this._disableClassificationDesc = true;
     this._hideClassificationDesc = true;
-
-    const codeWithName = event.code.split('|');
+    const codeWithName = event.value.code.split('|');
     this._newClassificationDesc = codeWithName[1];
     this._showNewClassificationCodeAsReadOnly = true;
     this._newClassificationCodeNemeAsArr = [this._newClassificationCode.name];

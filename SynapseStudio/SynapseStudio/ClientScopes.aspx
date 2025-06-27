@@ -82,11 +82,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <h3>New client scope</h3>
                         <div class="row">
                             <div class="col-md-12">
-                                <asp:Panel ID="pnlClientScope" runat="server" class="form-group">
+                                <asp:Panel ID="pnlClientScope" runat="server">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <asp:Label ID="lblClientScope" runat="server" CssClass="control-label" Text="* Please select a client scope" Font-Bold="true"></asp:Label>
-                                            <asp:DropDownList ID="ddlClientScope" runat="server" CssClass="form-control input-lg">
+                                            <asp:DropDownList ID="ddlClientScope" runat="server" CssClass="form-select form-select-lg mb-3">
                                             </asp:DropDownList>
                                             <asp:RequiredFieldValidator ID="rfvClientScope" runat="server" ControlToValidate="ddlClientScope" InitialValue="0" ErrorMessage="Please select scope" ValidationGroup="validate" ForeColor="Red"></asp:RequiredFieldValidator>
                                         </div>

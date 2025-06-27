@@ -99,10 +99,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <asp:Panel ID="fgDefaultContext" runat="server" class="form-group">
+                                        <asp:Panel ID="fgDefaultContext" runat="server">
                                             <asp:Label ID="lblDefaultContext" runat="server" CssClass="control-label" for="ddlDefaultContext" Text="Select a the entity that defines the default context for this list" Font-Bold="true"></asp:Label>
                                             <asp:Label ID="errDefaultContext" runat="server"></asp:Label>
-                                            <asp:DropDownList ID="ddlDefaultContext" runat="server" CssClass="form-control input-lg" AutoPostBack="true" OnSelectedIndexChanged="ddlDefaultContext_SelectedIndexChanged">
+                                            <asp:DropDownList ID="ddlDefaultContext" runat="server" CssClass="form-select form-select-lg mb-3" AutoPostBack="true" OnSelectedIndexChanged="ddlDefaultContext_SelectedIndexChanged">
                                             </asp:DropDownList>
                                         </asp:Panel>
                                     </div>
@@ -124,10 +124,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <asp:Panel ID="fgQuestionType" runat="server" class="form-group">
+                                        <asp:Panel ID="fgQuestionType" runat="server">
                                             <asp:Label ID="lblQuestionType" runat="server" CssClass="control-label" for="ddlQuestionType" Text="Select a question type from the list below" Font-Bold="true"></asp:Label>
                                             <asp:Label ID="errQuestionType" runat="server"></asp:Label>
-                                            <asp:DropDownList ID="ddlQuestionType" runat="server" CssClass="form-control input-lg" AutoPostBack="true" OnSelectedIndexChanged="ddlQuestionType_SelectedIndexChanged">
+                                            <asp:DropDownList ID="ddlQuestionType" runat="server" CssClass="form-select form-select-lg mb-3" AutoPostBack="true" OnSelectedIndexChanged="ddlQuestionType_SelectedIndexChanged">
                                             </asp:DropDownList>
                                         </asp:Panel>
                                     </div>
@@ -200,17 +200,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div id="fgOptionType" runat="server" class="form-group">
+                                            <div id="fgOptionType" runat="server">
                                                 <asp:Label ID="lblOptionType" runat="server" CssClass="control-label" for="ddlOptionType" Text="* Select the option type (Internal or SQL Query)" Font-Bold="true"></asp:Label>
                                                 <asp:Label ID="errOptionType" runat="server"></asp:Label>
-                                                <asp:DropDownList ID="ddlOptionType" runat="server" CssClass="form-control input-lg" AutoPostBack="true" OnSelectedIndexChanged="ddlOptionType_SelectedIndexChanged">
+                                                <asp:DropDownList ID="ddlOptionType" runat="server" CssClass="form-select form-select-lg mb-3" AutoPostBack="true" OnSelectedIndexChanged="ddlOptionType_SelectedIndexChanged">
                                                 </asp:DropDownList>
                                             </div>
                                         </div>
                                     </div>
 
 
-                                    <div id="fgOptionCollection" runat="server" class="form-group">
+                                    <div id="fgOptionCollection" runat="server">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <asp:Label ID="lblOptionCollection" runat="server" CssClass="control-label" for="ddlOptionGroup" Text="* Select Internal Option Collection" Font-Bold="true"></asp:Label>
@@ -218,7 +218,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                         </div>
 
                                         <asp:Label ID="errOptionCollection" runat="server"></asp:Label>
-                                        <asp:DropDownList ID="ddlOptionCollection" runat="server" CssClass="form-control input-lg"></asp:DropDownList>
+                                        <asp:DropDownList ID="ddlOptionCollection" runat="server" CssClass="form-select form-select-lg mb-3"></asp:DropDownList>
                                     </div>
 
 

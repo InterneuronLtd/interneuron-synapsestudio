@@ -78,7 +78,7 @@ namespace SynapseStudio
 
                 try
                 {
-                    this.hdnUserName.Value = Session["userFullName"].ToString();
+                    this.hdnUserName.Value = Convert.ToString(Session["userFullName"]);
                 }
                 catch { }
 

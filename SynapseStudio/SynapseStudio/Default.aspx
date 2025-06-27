@@ -50,7 +50,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <div class="col-lg-12">
                 <h1>Synapse Studio <small>Dashboard</small></h1>
                 <div class="alert alert-dismissable alert-warning">
-                    <button data-dismiss="alert" class="close" type="button">&times;</button>
+                    <button data-bs-dismiss="alert" class="close" type="button">&times;</button>
                     Welcome to the admin dashboard!                    
                 </div>
             </div>

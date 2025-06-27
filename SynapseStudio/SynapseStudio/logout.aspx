@@ -50,7 +50,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <script src="Scripts/oidc/oidc-client.js"></script>
     <script src="Scripts/oidc/OidcLoginHelper.js"></script>
 
-    <link href="bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="bootstrap/bootstrap-5.3.3/css/bootstrap.css" rel="stylesheet" />
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
     <style>
         .div-form {
@@ -113,8 +113,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                 <h3>Logged out successfully</h3>
 
                                 Your session has ended, please click on the link below to login again.
+                                <div class="d-grid gap-2">
+                                    <a href="LoginOidc.aspx" class="btn btn-primary">Click here to login again</a>
+                                </div>
 
-                                   <a href="LoginOidc.aspx" class="btn btn-lg btn-primary btn-block">Click here to login again</a>
+                                   
                             </div>
                             <%--<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>--%>
                         </asp:Panel>

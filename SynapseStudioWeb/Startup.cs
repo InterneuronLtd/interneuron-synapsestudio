@@ -140,11 +140,11 @@ namespace SynapseStudioWeb
                 //options.SlidingExpiration = true;
                 //options.ExpireTimeSpan = TimeSpan.FromHours(24);
 
-                options.Events.OnSigningOut = async e =>
-                {
+               // options.Events.OnSigningOut = async e =>
+                //{
                     // automatically revoke refresh token at signout time
-                    await e.HttpContext.RevokeUserRefreshTokenAsync();
-                };
+                   // await e.HttpContext.RevokeUserRefreshTokenAsync();
+                //};
             })
                 .AddOpenIdConnect("oidc", options =>
                 {
@@ -156,7 +156,7 @@ namespace SynapseStudioWeb
                     options.CallbackPath = Configuration["SynapseCore:Settings:CallbackPath"];
                     options.Scope.Add(Configuration["SynapseCore:Settings:OpenIdAPIScope"]);
                     options.Scope.Add(Configuration["SynapseCore:Settings:ReadAccessAPIScope"]);
-                    options.Scope.Add(Configuration["SynapseCore:Settings:OfflineAccess"]);
+                    //options.Scope.Add(Configuration["SynapseCore:Settings:OfflineAccess"]);
                     options.GetClaimsFromUserInfoEndpoint = true;
                     options.ResponseType = Configuration["SynapseCore:Settings:ResponseType"];
                     options.RequireHttpsMetadata = false;

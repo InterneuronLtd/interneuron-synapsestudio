@@ -50,7 +50,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <div class="col-lg-12">
                 <h1>DevOps <small>Dashboard</small></h1>
                 <div class="alert alert-dismissable alert-info">
-                    <button data-dismiss="alert" class="close" type="button">&times;</button>
+                    <button data-bs-dismiss="alert" class="close" type="button">&times;</button>
                    Note: You must manually refresh this dashboard. The data provided for this dashboard comes from a second connection to the PostgresSQL system database which is only initialised when you use the Refresh button below.                   
                 </div>
             </div>

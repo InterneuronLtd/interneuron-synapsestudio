@@ -135,7 +135,11 @@ namespace EBoards
                     string returnURL = "Default.aspx";
                     try
                     {
-                        returnURL = Request.Cookies[Session["SynapseUser_UserID"].ToString().ToLower() + "_SynapseStudio_ReturnURL"].Value.ToString(); ;
+                        if(Request.Cookies[Session["SynapseUser_UserID"].ToString().ToLower() + "_SynapseStudio_ReturnURL"] != null)
+                        {
+                            returnURL = Request.Cookies[Session["SynapseUser_UserID"].ToString().ToLower() + "_SynapseStudio_ReturnURL"].Value.ToString(); ;
+                        }
+                        
                     }
                     catch { }
 

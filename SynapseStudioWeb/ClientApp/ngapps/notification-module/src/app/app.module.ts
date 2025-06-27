@@ -1,7 +1,7 @@
 //BEGIN LICENSE BLOCK 
 //Interneuron Synapse
 
-//Copyright(C) 2024  Interneuron Limited
+//Copyright(C) 2025  Interneuron Limited
 
 //This program is free software: you can redistribute it and/or modify
 //it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@ import { NotificationListComponent } from './notification-list/notification-list
 import { createCustomElement } from "@angular/elements";
 import { AppGlobalCssComponent } from './app.global.css.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { CardModule } from 'primeng/card';
 import { BadgeModule } from 'primeng/badge';
 import { TooltipModule } from 'primeng/tooltip';
@@ -58,47 +58,40 @@ import { EditorModule } from 'primeng/editor';
 import { NotificationItemComponent } from './notification-item/notification-item.component';
 
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    AppGlobalCssComponent,
-    NotificationListComponent,
-    NotificationItemComponent
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    AppRoutingModule,
-    FormsModule,
-    CardModule,
-    ButtonModule,
-    BadgeModule,
-    TooltipModule,
-    PanelModule,
-    OverlayPanelModule,
-    RippleModule,
-    ToastModule,
-    ToolbarModule,
-    DialogModule,
-    InputTextareaModule,
-    InputTextModule,
-    CheckboxModule,
-    TableModule,
-    AccordionModule,
-    DropdownModule,
-    ChipModule,
-    AutoCompleteModule,
-    ConfirmDialogModule,
-    MultiSelectModule,
-    DividerModule,
-    OverlayModule,
-    FieldsetModule,
-    EditorModule
-  ],
-  providers: [ConfirmationService, MessageService],
-  bootstrap: []
-})
+@NgModule({ declarations: [
+        AppComponent,
+        AppGlobalCssComponent,
+        NotificationListComponent,
+        NotificationItemComponent
+    ],
+    bootstrap: [], imports: [BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        FormsModule,
+        CardModule,
+        ButtonModule,
+        BadgeModule,
+        TooltipModule,
+        PanelModule,
+        OverlayPanelModule,
+        RippleModule,
+        ToastModule,
+        ToolbarModule,
+        DialogModule,
+        InputTextareaModule,
+        InputTextModule,
+        CheckboxModule,
+        TableModule,
+        AccordionModule,
+        DropdownModule,
+        ChipModule,
+        AutoCompleteModule,
+        ConfirmDialogModule,
+        MultiSelectModule,
+        DividerModule,
+        OverlayModule,
+        FieldsetModule,
+        EditorModule], providers: [ConfirmationService, MessageService, provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule {
   constructor(private injector: Injector) { }
 

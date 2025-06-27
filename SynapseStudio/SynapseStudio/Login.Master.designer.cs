@@ -25,11 +25,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SynapseStudio {
-    
-    
-    public partial class Login1 {
-        
+namespace SynapseStudio
+{
+
+
+    public partial class Login1
+    {
+
         /// <summary>
         /// head control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace SynapseStudio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
-        
+
         /// <summary>
         /// form1 control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace SynapseStudio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-        
+
         /// <summary>
         /// LoginSideBar control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace SynapseStudio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::SynapseStudio.LoginSideBar LoginSideBar;
-        
+
         /// <summary>
         /// LoginNavBar control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace SynapseStudio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::SynapseStudio.LoginNavBar LoginNavBar;
-        
+
         /// <summary>
         /// ContentPlaceHolder1 control.
         /// </summary>

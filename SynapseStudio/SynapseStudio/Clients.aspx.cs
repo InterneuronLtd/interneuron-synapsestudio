@@ -57,8 +57,8 @@ namespace SynapseStudio
             {
                 try
                 {
-                    clientupdateid = Request.QueryString["id"].ToString();
-                    if (clientupdateid.Trim() != "")
+                    clientupdateid = Convert.ToString(Request.QueryString["id"]);
+                    if (clientupdateid != null && clientupdateid.Trim() != "")
                     {
                         btnAddNewClient.Text = "Update Client";
                         lblformname.Text = "Update Client";

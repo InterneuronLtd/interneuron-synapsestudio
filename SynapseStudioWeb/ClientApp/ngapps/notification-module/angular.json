@@ -36,6 +36,9 @@
               "node_modules/quill/dist/quill.core.css",
               "node_modules/quill/dist/quill.snow.css"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [ "node_modules/" ]
+            },
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/quill/dist/quill.js"

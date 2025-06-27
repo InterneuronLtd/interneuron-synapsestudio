@@ -40,8 +40,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ApplicationListMapping.aspx.cs" Inherits="SynapseStudio.ApplicationListMapping" %>
 <asp:Content ID="Content3" ContentPlaceHolderID="head" runat="server">
     <link href="Content/themes/base/jquery-ui.css" rel="stylesheet" />
-    <script src="Scripts/knockout-2.2.0.js"></script>
-    <script src="Scripts/jquery-ui-1.12.1.js"></script>
+    <script src="Scripts/knockout-3.5.1.js"></script>
+    <script src="Scripts/jquery-ui-1.13.2.js"></script>
 
     <script type="text/javascript">
 
@@ -65,7 +65,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
         function getAvailableAttributes() {
-            debugger;
+            //debugger;
             var url = "ApplicationListMapping.aspx/LoadModuleList";
             var id = $('#listID').text();
             var data = "{'listId': '" + id + "'}";
@@ -86,7 +86,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
         function addAttributeToList(attributename) {
-            debugger;
+            //debugger;
             console.log("Added: " + attributename);
             var ordinalposition = $('#lblNextOrdinalPosition').text();
             var url = "ApplicationListMapping.aspx/MapModuletoApplication";
@@ -98,7 +98,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
         function removeAttributeFromList(attributename) {
-            debugger;
+            //debugger;
             var ordinalposition = $('#lblNextOrdinalPosition').text();
             var url = "ApplicationListMapping.aspx/UnMapModulefromApplication";
             var id = $('#listID').text();
@@ -118,7 +118,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         }
 
         function SelectUnselectAttribute(cb, attributeID) {
-            debugger;
+            //debugger;
             console.log(cb.name);
            
             var li = '#avail' + cb.id;
@@ -235,7 +235,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     var html = "<ul id='availableList'>";
                     var selectedhtml = "<ul id='selectedList'>";
                     $.each(availableList.d, function (i, availableItem) {
-                        debugger;
+                        //debugger;
                         html += '<li id="avail' + availableItem.applicationlist_id + '"'
                         if (availableItem.isselected) {
                             html += ' class="itemSelected"';
@@ -263,7 +263,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
             $('#btnQuickSave').click(function () {
                 //alert('Saved');
-                debugger;
+                //debugger;
                 var attributeId = $('#attributeId').text();
                 var displayname = $('#ContentPlaceHolder1_txtDisplayName').val();
                 var isdefaultmodule = $('#ContentPlaceHolder1_isdefaultmodule:checked').val();
@@ -289,7 +289,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             //e.preventDefault();
             console.log(item.applicationlist_id);
 
-            debugger;
+            //debugger;
             // Clear out current values from form
             $('#attributeName').text("");
             $('#attributeId').text("");
@@ -401,7 +401,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                             <span style="color: #b16060" aria-hidden="true">&times;</span>
                         </button>
                         <h3 class="modal-title">Attribute Properties</h3>
@@ -431,7 +431,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" id="btnQuickSave">Save changes</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>

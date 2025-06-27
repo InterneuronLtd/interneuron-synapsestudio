@@ -102,10 +102,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <asp:Panel ID="fgBedBoard" runat="server" class="form-group">
+                                        <asp:Panel ID="fgBedBoard" runat="server">
                                             <asp:Label ID="lblBedBoard" runat="server" CssClass="control-label" for="ddlBedBoard" Text="Select Bed Board" Font-Bold="true"></asp:Label>
                                             <asp:Label ID="errBedBoard" runat="server"></asp:Label>
-                                            <asp:DropDownList ID="ddlBedBoard" runat="server" CssClass="form-control input-lg">
+                                            <asp:DropDownList ID="ddlBedBoard" runat="server" CssClass="form-select form-select-lg mb-3">
                                             </asp:DropDownList>
                                         </asp:Panel>
                                     </div>
@@ -115,10 +115,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <asp:Panel ID="fgWard" runat="server" class="form-group">
+                                        <asp:Panel ID="fgWard" runat="server">
                                             <asp:Label ID="lblWard" runat="server" CssClass="control-label" for="ddllWard" Text="Select ward" Font-Bold="true"></asp:Label>
                                             <asp:Label ID="errlWard" runat="server"></asp:Label>
-                                            <asp:DropDownList ID="ddllWard" runat="server" CssClass="form-control input-lg" AutoPostBack="true" OnSelectedIndexChanged="ddllWard_SelectedIndexChanged">
+                                            <asp:DropDownList ID="ddllWard" runat="server" CssClass="form-select form-select-lg mb-3" AutoPostBack="true" OnSelectedIndexChanged="ddllWard_SelectedIndexChanged">
                                             </asp:DropDownList>
                                         </asp:Panel>
                                     </div>
@@ -127,10 +127,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <asp:Panel ID="fgBayRoom" runat="server" class="form-group">
+                                        <asp:Panel ID="fgBayRoom" runat="server">
                                             <asp:Label ID="lblBayRoom" runat="server" CssClass="control-label" for="ddlBayRoom" Text="Select bay / room" Font-Bold="true"></asp:Label>
                                             <asp:Label ID="errBayRoom" runat="server"></asp:Label>
-                                            <asp:DropDownList ID="ddlBayRoom" runat="server" CssClass="form-control input-lg" OnSelectedIndexChanged="ddlBayRoom_SelectedIndexChanged" AutoPostBack="true">
+                                            <asp:DropDownList ID="ddlBayRoom" runat="server" CssClass="form-select form-select-lg mb-3" OnSelectedIndexChanged="ddlBayRoom_SelectedIndexChanged" AutoPostBack="true">
                                             </asp:DropDownList>
                                         </asp:Panel>
                                     </div>
@@ -139,10 +139,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <asp:Panel ID="fgBed" runat="server" class="form-group">
+                                        <asp:Panel ID="fgBed" runat="server">
                                             <asp:Label ID="lblBed" runat="server" CssClass="control-label" for="ddlBed" Text="Select bed" Font-Bold="true"></asp:Label>
                                             <asp:Label ID="errBed" runat="server"></asp:Label>
-                                            <asp:DropDownList ID="ddlBed" runat="server" CssClass="form-control input-lg" AutoPostBack="false">
+                                            <asp:DropDownList ID="ddlBed" runat="server" CssClass="form-select form-select-lg mb-3" AutoPostBack="false">
                                             </asp:DropDownList>
                                         </asp:Panel>
                                     </div>

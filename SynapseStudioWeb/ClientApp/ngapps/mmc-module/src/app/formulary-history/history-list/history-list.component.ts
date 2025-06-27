@@ -1,7 +1,7 @@
 //BEGIN LICENSE BLOCK 
 //Interneuron Synapse
 
-//Copyright(C) 2024  Interneuron Limited
+//Copyright(C) 2025  Interneuron Limited
 
 //This program is free software: you can redistribute it and/or modify
 //it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 //along with this program.If not, see<http://www.gnu.org/licenses/>.
 //END LICENSE BLOCK 
 import { Component, Input, OnInit } from '@angular/core';
-import { LazyLoadEvent, PrimeNGConfig } from 'primeng/api';
+import { LazyLoadEvent, LazyLoadMeta, PrimeNGConfig } from 'primeng/api';
 import { HistoryListService } from './history-list.service';
 
 @Component({
@@ -58,7 +58,7 @@ export class HistoryListComponent implements OnInit {
     return actionurl[0] !== '/' ? basePath + "/" + actionurl : basePath + actionurl;
   }
 
-  async loadHistoryList(e: LazyLoadEvent) {
+  async loadHistoryList(e: any) {
     this._loading = true;
     const req = this.prepareReqParams(e);
     try {
@@ -73,7 +73,7 @@ export class HistoryListComponent implements OnInit {
   }
 
 
-  prepareReqParams(e: LazyLoadEvent): any {
+  prepareReqParams(e: any): any {
     const req: any = {
       pageNo: 1, pageSize: 10
     };

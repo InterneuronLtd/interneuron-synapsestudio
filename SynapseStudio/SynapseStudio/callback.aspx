@@ -47,7 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <head runat="server">
     <title></title>
 
-    <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="Scripts/jquery-3.7.1.js"></script>
     <script src="Scripts/oidc/oidc-client.js"></script>
     <script src="Scripts/oidc/callback.js"></script>
 </head>

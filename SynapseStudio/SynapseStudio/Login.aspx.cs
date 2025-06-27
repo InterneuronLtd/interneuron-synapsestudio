@@ -54,7 +54,7 @@ namespace SynapseStudio
             {
                 string redirectURL = "";
 
-                try { redirectURL = Convert.ToString(Request.QueryString["redirectURL"].ToString()); }
+                try { redirectURL = Convert.ToString(Request.QueryString["redirectURL"]); }
                 catch { redirectURL = "Default.aspx"; }
 
                 this.lblRedirect.Text = redirectURL;
@@ -62,7 +62,7 @@ namespace SynapseStudio
                 String loggedInUser = "";
                 try
                 {
-                    loggedInUser = Session["userID"].ToString();
+                    loggedInUser = Convert.ToString(Session["userID"]);
                 }
                 catch { }
 

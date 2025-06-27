@@ -113,10 +113,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <asp:Panel ID="fgDataType" runat="server" class="form-group">
+                                <asp:Panel ID="fgDataType" runat="server">
                                     <asp:Label ID="lbllDataType" runat="server" CssClass="control-label" for="ddltesttypeid" Text="Select a datatype" Font-Bold="true"></asp:Label>
                                     <asp:Label ID="errlDataType" runat="server"></asp:Label>
-                                    <asp:DropDownList ID="ddlDataType" runat="server" CssClass="form-control input-lg">
+                                    <asp:DropDownList ID="ddlDataType" runat="server" CssClass="form-select form-select-lg mb-3">
                                     </asp:DropDownList>
                                 </asp:Panel>
                             </div>

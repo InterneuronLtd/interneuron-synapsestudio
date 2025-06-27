@@ -25,11 +25,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SynapseStudio {
-    
-    
-    public partial class Site {
-        
+namespace SynapseStudio
+{
+
+
+    public partial class Site
+    {
+
         /// <summary>
         /// head control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace SynapseStudio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
-        
+
         /// <summary>
         /// form1 control.
         /// </summary>
@@ -47,16 +49,7 @@ namespace SynapseStudio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-        
-        /// <summary>
-        /// Sidebar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::SynapseStudio.Sidebar Sidebar;
-        
+
         /// <summary>
         /// NavBar control.
         /// </summary>
@@ -65,7 +58,16 @@ namespace SynapseStudio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::SynapseStudio.NavBar NavBar;
-        
+
+        /// <summary>
+        /// Sidebar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::SynapseStudio.Sidebar Sidebar;
+
         /// <summary>
         /// ContentPlaceHolder1 control.
         /// </summary>

@@ -1850,6 +1850,12 @@ th {
 .table-striped > tbody > tr:nth-child(odd) > td,
 .table-striped > tbody > tr:nth-child(odd) > th {
     background-color: #080808;
+    color: #fff;
+}
+
+.table > :not(caption) > * > * {
+    background-color: #181818;
+    color: #fff;
 }
 
 .table-hover > tbody > tr:hover > td,
@@ -2254,6 +2260,11 @@ select[multiple].input-sm {
 select.input-lg {
     height: 54px;
     line-height: 54px;
+}
+
+.form-select-lg{
+    font-size:18px;
+    height:54px;
 }
 
 textarea.input-lg,
@@ -4491,15 +4502,19 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar {
-    position: relative;
-    min-height: 50px;
-    margin-bottom: 20px;
+    position: sticky;
+    height: 60px;
     border: 1px solid transparent;
     background-color: #0277bd !important;
+    margin-top: -30px;
 }
 
-@media (min-width: 768px) {
-    .navbar {
+    .navbar > .container-fluid{
+        align-items:initial;
+    }
+
+    @media (min-width: 768px) {
+        .navbar {
         border-radius: 4px;
     }
 }
@@ -5014,6 +5029,30 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
         background-color: transparent;
         color: #ffffff;
     }
+
+.navbar-nav > li > a {
+    color: #BDBDBD;
+}
+    .navbar-nav > li > a:hover,
+    .navbar-nav > li > a:focus {
+        color: #ffffff;
+        background-color: transparent;
+    }
+
+    .navbar-nav > li > a.show,
+    .navbar-nav > li > a.show:hover,
+    .navbar-nav > li > a.show:focus {
+        background-color: transparent;
+        color: #ffffff;
+    }
+
+.navbar-nav.navbar-right > li > a[aria-expanded="true"].show,
+.navbar-nav.navbar-right > li > a[aria-expanded="true"].show:hover,
+.navbar-nav.navbar-right > li > a[aria-expanded="true"].show:focus {
+    text-align: right;
+    background-color: transparent;
+    color: #ffffff;
+}
 
 @media (max-width: 767px) {
     .navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header {
@@ -7264,7 +7303,7 @@ table.tablesorter thead {
         left: 225px;
         width: 225px;
         position: fixed;
-        top: 50px;
+        top: 60px;
         height: 100%;
         border-radius: 0;
         border: none;
@@ -7273,8 +7312,8 @@ table.tablesorter thead {
     }
 
         /*menu overrides*/
-        .side-nav > li.dropdown > ul.dropdown-menu {
-            position: relative;
+        .side-nav > li.nav-item.dropdown > ul.dropdown-menu {
+            position: sticky;
             min-width: 225px;
             margin: 0;
             padding: 0;
@@ -7285,25 +7324,33 @@ table.tablesorter thead {
             -webkit-box-shadow: none;
         }
 
-            .side-nav > li.dropdown > ul.dropdown-menu > li > a {
+            .side-nav > li.nav-item > ul.dropdown-menu > li > a {
                 color: #999999;
                 padding: 15px 15px 15px 25px;
             }
 
-                .side-nav > li.dropdown > ul.dropdown-menu > li > a:hover,
-                .side-nav > li.dropdown > ul.dropdown-menu > li > a.active,
-                .side-nav > li.dropdown > ul.dropdown-menu > li > a:focus {
+                .side-nav > li.nav-item > ul.dropdown-menu > li > a:hover,
+                .side-nav > li.nav-item > ul.dropdown-menu > li > a.active,
+                .side-nav > li.nav-item > ul.dropdown-menu > li > a:focus {
                     color: #fff;
                     background-color: #787878;
                 }
 
-        .side-nav > li > a {
-            width: 225px;
-        }
+    .side-nav > li > a {
+        color: #BDBDBD;
+        width: 225px;
+        padding: 15px;
+    }
 
     .navbar-inverse .navbar-nav > li > a:hover,
     .navbar-inverse .navbar-nav > li > a:focus {
         background-color: #0277bd;
+    }
+
+    .navbar-nav > li > a:hover,
+    .navbar-nav > li > a:focus {
+        background-color: #0277bd;
+        text-decoration: none;
     }
 
     /* Nav Messages */
@@ -7317,6 +7364,11 @@ table.tablesorter thead {
         }
 
     .navbar-collapse {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+
+    nav.navbar {
         padding-left: 15px !important;
         padding-right: 15px !important;
     }

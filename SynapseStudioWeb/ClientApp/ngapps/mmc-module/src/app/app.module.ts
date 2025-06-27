@@ -1,7 +1,7 @@
 //BEGIN LICENSE BLOCK 
 //Interneuron Synapse
 
-//Copyright(C) 2024  Interneuron Limited
+//Copyright(C) 2025  Interneuron Limited
 
 //This program is free software: you can redistribute it and/or modify
 //it under the terms of the GNU General Public License as published by
@@ -61,7 +61,7 @@ import { MessagesModule } from 'primeng/messages';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { HistoryListComponent } from './formulary-history/history-list/history-list.component';
 
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
 import { CalendarModule } from 'primeng/calendar';
@@ -76,67 +76,60 @@ import { MessageModule } from 'primeng/message';
 import { BulkUpdateStatusComponent } from './bulkupdatestatus/bulkupdatestatus.component';
 import { DataCompressionService } from './shared/datacompression.service';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    AppGlobalCssComponent,
-    ClassificationContainerComponent,
-    ClassificationLineElementComponent,
-    HistoryListComponent,
-    ImportComponent,
-    FilterComponent,
-    FormularyJSONViewerComponent,
-    BulkUpdateStatusComponent
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    AppRoutingModule,
-    FormsModule,
-    DropdownModule,
-    InputTextModule,
-    CardModule,
-    BadgeModule,
-    TooltipModule,
-    PanelModule,
-    OverlayPanelModule,
-    ButtonModule,
-    ToastModule,
-    RippleModule,
-    MessagesModule,
-    ConfirmDialogModule,
-    TableModule,
-    DialogModule,
-    CalendarModule,
-    FileUploadModule,
-    StepsModule,
-    SkeletonModule,
-    ConfirmPopupModule,
-    CheckboxModule,
-    MultiSelectModule,
-    TreeTableModule,
-    PaginatorModule,
-    TreeModule,
-    NgxJsonViewerModule,
-    SplitterModule,
-    ScrollPanelModule,
-    ContextMenuModule,
-    InputTextareaModule,
-    InputSwitchModule,
-    ProgressSpinnerModule,
-    AutoCompleteModule,
-    ChipModule,
-    ChipsModule,
+@NgModule({ declarations: [
+        AppComponent,
+        AppGlobalCssComponent,
+        ClassificationContainerComponent,
+        ClassificationLineElementComponent,
+        HistoryListComponent,
+        ImportComponent,
+        FilterComponent,
+        FormularyJSONViewerComponent,
+        BulkUpdateStatusComponent
+    ], imports: [BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        FormsModule,
+        DropdownModule,
+        InputTextModule,
+        CardModule,
+        BadgeModule,
+        TooltipModule,
+        PanelModule,
+        OverlayPanelModule,
+        ButtonModule,
+        ToastModule,
+        RippleModule,
+        MessagesModule,
+        ConfirmDialogModule,
+        TableModule,
+        DialogModule,
+        CalendarModule,
+        FileUploadModule,
+        StepsModule,
+        SkeletonModule,
+        ConfirmPopupModule,
+        CheckboxModule,
+        MultiSelectModule,
+        TreeTableModule,
+        PaginatorModule,
+        TreeModule,
+        NgxJsonViewerModule,
+        SplitterModule,
+        ScrollPanelModule,
+        ContextMenuModule,
+        InputTextareaModule,
+        InputSwitchModule,
+        ProgressSpinnerModule,
+        AutoCompleteModule,
+        ChipModule,
+        ChipsModule,
     MessageModule,
-    BsDropdownModule.forRoot(),
-  ],
-  providers: [
-    DataCompressionService,
-    { provide: HTTP_INTERCEPTORS, useClass: CommonInterceptor, multi: true }
-  ],
-  //bootstrap: [AppComponent]
-})
+  BsDropdownModule.forRoot()  ], providers: [
+        DataCompressionService,
+        { provide: HTTP_INTERCEPTORS, useClass: CommonInterceptor, multi: true },
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule {
   constructor(private injector: Injector) { }
 

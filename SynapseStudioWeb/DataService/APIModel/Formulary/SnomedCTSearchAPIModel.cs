@@ -36,6 +36,6 @@ namespace SynapseStudioWeb.DataService.APIModel
         public string Fsn { get; set; }
         public string Code { get; set; }
         public string ParentCode { get; set; }
-        public long Level { get; set; }
+        public long? Level { get; set; }
     }
 }

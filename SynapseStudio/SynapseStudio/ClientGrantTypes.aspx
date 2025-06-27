@@ -82,11 +82,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <h3>New client grant type</h3>
                         <div class="row">
                             <div class="col-md-12">
-                                <asp:Panel ID="pnlClientGrantType" runat="server" class="form-group">
+                                <asp:Panel ID="pnlClientGrantType" runat="server">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <asp:Label ID="lblClientGrantType" runat="server" CssClass="control-label" Text="* Please select a client grant type" Font-Bold="true"></asp:Label>
-                                            <asp:DropDownList ID="ddlClientGrantType" runat="server" CssClass="form-control input-lg">
+                                            <asp:DropDownList ID="ddlClientGrantType" runat="server" CssClass="form-select form-select-lg mb-3">
                                             </asp:DropDownList>
                                             <asp:RequiredFieldValidator ID="rfvClientGrantType" runat="server" ControlToValidate="ddlClientGrantType" InitialValue="Please select ..." ErrorMessage="Please select grant type" ValidationGroup="validate" ForeColor="Red"></asp:RequiredFieldValidator>
                                         </div>

@@ -102,10 +102,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <asp:Panel ID="fgIdentityResource" runat="server" class="form-group">
+                                <asp:Panel ID="fgIdentityResource" runat="server">
                                     <asp:Label ID="lblResource" runat="server" CssClass="control-label" for="ddlResource" Text="Select an Identity Resource" Font-Bold="true"></asp:Label>
                                     <asp:Label ID="errResource" runat="server"></asp:Label>
-                                    <asp:DropDownList ID="ddlResource" DataTextField="name" DataValueField="resourceid" runat="server" CssClass="form-control input-lg">
+                                    <asp:DropDownList ID="ddlResource" DataTextField="name" DataValueField="resourceid" runat="server" CssClass="form-select form-select-lg mb-3">
                                     </asp:DropDownList>
                                 </asp:Panel>
                             </div>

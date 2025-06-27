@@ -95,24 +95,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <div class="row">
                             <div class="col-md-12">
 
-                                <asp:Panel ID="fgSynapseNamespace" runat="server" class="form-group">
+                                <asp:Panel ID="fgSynapseNamespace" runat="server">
                                     <asp:Label ID="lblSynapseNamespace" runat="server" CssClass="control-label" for="ddlSynapseNamespace" Text="Select a namespace from the list below" Font-Bold="true"></asp:Label>
                                     <asp:Label ID="errSynapseNamespace" runat="server"></asp:Label>
-                                    <asp:DropDownList ID="ddlSynapseNamespace" runat="server" CssClass="form-control input-lg" AutoPostBack="true" OnSelectedIndexChanged="ddlSynapseNamespace_SelectedIndexChanged">
+                                    <asp:DropDownList ID="ddlSynapseNamespace" runat="server" CssClass="form-select form-select-lg mb-3" AutoPostBack="true" OnSelectedIndexChanged="ddlSynapseNamespace_SelectedIndexChanged">
                                     </asp:DropDownList>
                                 </asp:Panel>
 
-                                <asp:Panel ID="fgEntity" runat="server" class="form-group">
+                                <asp:Panel ID="fgEntity" runat="server">
                                     <asp:Label ID="lblEntity" runat="server" CssClass="control-label" for="ddlEntity" Text="Select an entity from the list below" Font-Bold="true"></asp:Label>
                                     <asp:Label ID="errEntity" runat="server"></asp:Label>
-                                    <asp:DropDownList ID="ddlEntity" runat="server" CssClass="form-control input-lg">
+                                    <asp:DropDownList ID="ddlEntity" runat="server" CssClass="form-select form-select-lg mb-3">
                                     </asp:DropDownList>
                                 </asp:Panel>
 
-                                <asp:Panel ID="pnlLocalAttribute" runat="server" class="form-group">
+                                <asp:Panel ID="pnlLocalAttribute" runat="server">
                                     <asp:Label ID="lblLocalAttribute" runat="server" CssClass="control-label" for="ddlLocalAttribute" Text="Optional - Select a the local attribute that you want to create the relationship for" Font-Bold="true"></asp:Label>
                                     <asp:Label ID="errLocalAttribute" runat="server"></asp:Label>
-                                    <asp:DropDownList ID="ddlLocalAttribute" runat="server" CssClass="form-control input-lg">
+                                    <asp:DropDownList ID="ddlLocalAttribute" runat="server" CssClass="form-select form-select-lg mb-3">
                                     </asp:DropDownList>
                                 </asp:Panel>
 

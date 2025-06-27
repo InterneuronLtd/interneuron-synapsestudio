@@ -81,10 +81,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <asp:Panel ID="fgCoreEntity" runat="server" class="form-group">
+                                <asp:Panel ID="fgCoreEntity" runat="server">
                                     <asp:Label ID="lblLocalNamespace" runat="server" CssClass="control-label" for="ddlLocalNamespace" Text="Select the local namespace that you want to create the entity in" Font-Bold="true"></asp:Label>
                                     <asp:Label ID="errLocalNamespace" runat="server"></asp:Label>
-                                    <asp:DropDownList ID="ddlLocalNamespace" runat="server" CssClass="form-control input-lg">
+                                    <asp:DropDownList ID="ddlLocalNamespace" runat="server" CssClass="form-select form-select-lg mb-3">
                                     </asp:DropDownList>
                                 </asp:Panel>
                             </div>

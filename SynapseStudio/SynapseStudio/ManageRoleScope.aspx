@@ -91,10 +91,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                         <div class="row">
                             <div class="col-md-12">
-                                <asp:Panel ID="fgIdentityResource" runat="server" class="form-group">
+                                <asp:Panel ID="fgIdentityResource" runat="server">
                                     <asp:Label ID="lblResource" runat="server" CssClass="control-label" for="ddlResource" Text="Select an API Scope to give permissions on this role" Font-Bold="true"></asp:Label>
                                     <asp:Label ID="errResource" runat="server"></asp:Label>
-                                    <asp:DropDownList ID="ddlApiScopes" DataValueField="Id" DataTextField="Name" runat="server" CssClass="form-control input-lg">
+                                    <asp:DropDownList ID="ddlApiScopes" DataValueField="Id" DataTextField="Name" runat="server" CssClass="form-select form-select-lg mb-3">
                                     </asp:DropDownList>
                                     <br />
                                     <asp:Button ID="btnAdd" runat="server" CssClass="btn btn-primary" Text="Add To Role" Width="200" OnClick="btnAdd_Click" />

@@ -1,7 +1,7 @@
 //BEGIN LICENSE BLOCK 
 //Interneuron Synapse
 
-//Copyright(C) 2024  Interneuron Limited
+//Copyright(C) 2025  Interneuron Limited
 
 //This program is free software: you can redistribute it and/or modify
 //it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ import { v4 as uuidv4 } from 'uuid';
 import * as $ from 'jquery';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ConfirmationService } from 'primeng/api';
-import { data, error } from 'jquery';
+import {  error } from 'jquery';
 import { MessageService } from 'primeng/api';
 import parsePhoneNumber from 'libphonenumber-js'
 
@@ -99,6 +99,7 @@ export class NotificationItemComponent implements OnInit {
 
   @Input()
   set notificationTypeModel(obj: any) {
+    console.log('obj===', obj);
     if (obj.notificationId && obj.action == 'edit') {
       this._action = obj.action;
       this._notificationId = obj.notificationId;
@@ -222,7 +223,7 @@ export class NotificationItemComponent implements OnInit {
     //  this._errorSMS = true;
     //}
 
-    const phoneNumber = parsePhoneNumber(this._sms);
+    const phoneNumber = '';// parsePhoneNumber(this._sms);
 
     if (phoneNumber) {
       this._errorSMS = false;
@@ -353,7 +354,7 @@ export class NotificationItemComponent implements OnInit {
       .subscribe({
         next: (response) => {
           this.notificationType = response;
-
+          console.log('response===', response);
           this._name = this.notificationType?.name!;
           this._description = this.notificationType?.description!;
           this._selectedChannels = this.notificationType?.channelDetails!;
@@ -377,6 +378,7 @@ export class NotificationItemComponent implements OnInit {
               }
             }
           })
+          console.log('response111===', response);
         },
         error: error => {
           this.messageService.add({ severity: 'error', summary: 'Status', detail: 'Error while retrieving notification' });
@@ -434,7 +436,7 @@ export class NotificationItemComponent implements OnInit {
     }
 
     let webChannel = this._selectedChannels.filter(rec => rec.name == 'Web');
-
+    /*
     if (webChannel && webChannel.length > 0 && webChannel[0].isEnabled && $.isEmptyObject(this._selectedNotificationLookup) || (!$.isEmptyObject(this._selectedNotificationLookup) && this._selectedNotificationLookup?.code?.trim() == '')) {
       this.isChannelOptionSelected = false;
       event.stopPropagation();
@@ -443,7 +445,7 @@ export class NotificationItemComponent implements OnInit {
     else {
       this.isChannelOptionSelected = true;
     }
-
+    */
     const notification = new Notification();
     notification.name = this._name;
     notification.description = this._description;

@@ -16,7 +16,9 @@
 
 //You should have received a copy of the GNU General Public License
 //along with this program.If not, see<http://www.gnu.org/licenses/>.
-﻿using Newtonsoft.Json;
+﻿using MessagePack.Resolvers;
+using MessagePack;
+using Newtonsoft.Json;
 using SynapseStudioWeb.DataService;
 using SynapseStudioWeb.Models;
 using System;
@@ -674,10 +676,15 @@ namespace SynapseStudioWeb.Helpers
             }
             else if (t.Equals(DataSetSerializerType.Binary))
             {
+                //Upgrade to .Net 8 : Does not support BinaryFormatter
+                /*
                 MemoryStream ms = new MemoryStream();
                 BinaryFormatter bf = new BinaryFormatter();
                 bf.Serialize(ms, dataset);
                 return Convert.ToBase64String(ms.ToArray());
+                */
+                var bytes = MessagePackSerializer.Serialize(dataset, ContractlessStandardResolver.Options);
+                return Convert.ToBase64String(bytes);
             }
             else if (t.Equals(DataSetSerializerType.Xml))
             {
@@ -696,9 +703,13 @@ namespace SynapseStudioWeb.Helpers
             }
             else if (t.Equals(DataSetSerializerType.Binary))
             {
-                MemoryStream ms = new MemoryStream(Convert.FromBase64String(serializedString.ToString()));
-                BinaryFormatter bf = new BinaryFormatter();
-                return bf.Deserialize(ms);
+                //Upgrade to .Net 8 : Does not support BinaryFormatter
+                /*
+                                MemoryStream ms = new MemoryStream(Convert.FromBase64String(serializedString.ToString()));
+                                BinaryFormatter bf = new BinaryFormatter();
+                                return bf.Deserialize(ms);
+                */
+                return MessagePackSerializer.Deserialize<object>(Convert.FromBase64String(serializedString.ToString()));
             }
             else if (t.Equals(DataSetSerializerType.Xml))
             {

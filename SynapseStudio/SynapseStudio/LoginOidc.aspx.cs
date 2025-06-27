@@ -49,7 +49,7 @@ namespace EBoards
             string token = string.Empty;
             try
             {
-                token = Session["access_token"].ToString();
+                token = Convert.ToString(Session["access_token"]);
 
             }
             catch

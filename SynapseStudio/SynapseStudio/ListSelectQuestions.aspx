@@ -43,8 +43,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="Content/themes/base/jquery-ui.css" rel="stylesheet" />
-    <script src="Scripts/knockout-2.2.0.js"></script>
-    <script src="Scripts/jquery-ui-1.12.1.js"></script>
+    <script src="Scripts/knockout-3.5.1.js"></script>
+    <script src="Scripts/jquery-ui-1.13.2.js"></script>
 
     <script type="text/javascript">
 

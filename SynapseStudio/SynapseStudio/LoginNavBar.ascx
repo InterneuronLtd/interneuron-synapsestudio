@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="LoginNavBar.ascx.cs" Inherits="SynapseStudio.LoginNavBar" %>
 
-<ul class="nav navbar-nav navbar-right navbar-user">
+<ul class="navbar-nav navbar-right">
    <li>&nbsp;</li>
 </ul>
 

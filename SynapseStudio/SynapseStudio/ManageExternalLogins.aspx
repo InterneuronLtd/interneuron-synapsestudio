@@ -105,10 +105,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <asp:Panel ID="fgIdentityResource" runat="server" class="form-group">
+                                <asp:Panel ID="fgIdentityResource" runat="server">
                                     <asp:Label ID="lblResource" runat="server" CssClass="control-label" for="ddlResource" Text="Select an Identity Provider" Font-Bold="true"></asp:Label>
                                     <asp:Label ID="errResource" runat="server"></asp:Label>
-                                    <asp:DropDownList ID="ddlIdp" runat="server" CssClass="form-control input-lg">
+                                    <asp:DropDownList ID="ddlIdp" runat="server" CssClass="form-select form-select-lg mb-3">
                                         <asp:ListItem Value="ADFS">ADFS</asp:ListItem>
                                         <asp:ListItem Value="AAD">Azure AD</asp:ListItem>
                                         <asp:ListItem Value="Google">Google</asp:ListItem>

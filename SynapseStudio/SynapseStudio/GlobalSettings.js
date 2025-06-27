@@ -2,13 +2,13 @@
 //var GlobalServiceURL = "http://localhost:50769/";
 //var GlobalServiceURL = 'https://interneuron.rnoh.nhs.uk/synapsedynamicapi/';
 //var GlobalServiceURL = 'https://localhost:44374/';
-var GlobalServiceURL = 'https://synapsedynamicapi.azurewebsites.net/';
+var GlobalServiceURL = 'https://synapsedynamicapi.dev.interneuron.io/';
 
 var config = {
 
     //configure authority and client
 
-    authority: "https://synapseidentityserver.azurewebsites.net",
+    authority: "https://synapseidentityserver.dev.interneuron.io",
     client_id: "SynapseStudio",
     redirect_uri: window.location.origin + "/callback.aspx",
     post_logout_redirect_uri: window.location.origin + "/logout.aspx?oidccallback=true",

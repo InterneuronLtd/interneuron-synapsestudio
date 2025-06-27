@@ -63,10 +63,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         </div>
 
 
-                        <asp:Panel ID="fgUserType" runat="server" class="form-group">
+                        <asp:Panel ID="fgUserType" runat="server">
                             <label class="control-label" for="ddlUserType"></label>
                             <asp:Label ID="errUserType" runat="server"></asp:Label>
-                            <asp:DropDownList ID="ddlUserType" runat="server" CssClass="form-control input-lg">
+                            <asp:DropDownList ID="ddlUserType" runat="server" CssClass="form-select form-select-lg mb-3">
                                 <asp:ListItem Value="Super User" Text="I want to register as a Super User"></asp:ListItem>
                             </asp:DropDownList>
                         </asp:Panel>
@@ -146,7 +146,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <div class="row" style="margin-top: 20px;">
             <div class="col-md-4"></div>
             <div class="col-md-4">
-                <a class="btn btn-default" href="RegisterAs.aspx">< Back</a>
+                <a class="btn btn-default" href="RegisterAsSuperUser.aspx">< Back</a>
             </div>
             <div class="col-md-4"></div>
         </div>

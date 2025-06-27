@@ -73,7 +73,7 @@ namespace SynapseStudio
                 string local = "";
                 try
                 {
-                    local = Request.QueryString["local"].ToString();
+                    local = Convert.ToString(Request.QueryString["local"]);
                 }
                 catch
                 {                    

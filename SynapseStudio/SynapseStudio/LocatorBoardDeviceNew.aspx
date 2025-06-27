@@ -102,10 +102,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <asp:Panel ID="fgLocatorBoard" runat="server" class="form-group">
+                                        <asp:Panel ID="fgLocatorBoard" runat="server">
                                             <asp:Label ID="lblLocatorBoard" runat="server" CssClass="control-label" for="ddlLocatorBoard" Text="Select Locator Board" Font-Bold="true"></asp:Label>
                                             <asp:Label ID="errLocatorBoard" runat="server"></asp:Label>
-                                            <asp:DropDownList ID="ddlLocatorBoard" runat="server" CssClass="form-control input-lg">
+                                            <asp:DropDownList ID="ddlLocatorBoard" runat="server" CssClass="form-select form-select-lg mb-3">
                                             </asp:DropDownList>
                                         </asp:Panel>
                                     </div>

@@ -1,7 +1,7 @@
 //BEGIN LICENSE BLOCK 
 //Interneuron Synapse
 
-//Copyright(C) 2024  Interneuron Limited
+//Copyright(C) 2025  Interneuron Limited
 
 //This program is free software: you can redistribute it and/or modify
 //it under the terms of the GNU General Public License as published by
@@ -223,7 +223,7 @@ export class FilterComponent implements OnInit, OnDestroy {
 
   statuses: CdDescKeyValuePair[] = [];
 
-  selectedNodes: TreeNode[] = [];
+  selectedNodes: any = []; //TreeNode[] = [];
 
   //cols: any[] = [];
 
@@ -1893,7 +1893,7 @@ export class FilterComponent implements OnInit, OnDestroy {
           child.data.isDisabled = false;
           child.data.isChecked = false;
 
-          const indx = this.selectedNodes.findIndex(rec => rec.data.level === child.data.level && rec.data.code === child.data.code && rec.data.status.cd === child.data.status.cd);
+          const indx = this.selectedNodes.findIndex((rec : TreeNode) => rec.data.level === child.data.level && rec.data.code === child.data.code && rec.data.status.cd === child.data.status.cd);
           this.selectedNodes.splice(indx, indx >= 0 ? 1 : 0);
 
         } else {
@@ -1956,7 +1956,7 @@ export class FilterComponent implements OnInit, OnDestroy {
           child.data.isDisabled = false;
           child.data.isChecked = true;
 
-          if (!(this.selectedNodes.findIndex(rec => rec.data.level === child.data.level && rec.data.code === child.data.code && rec.data.status.cd === child.data.status.cd) >= 0))
+          if (!(this.selectedNodes.findIndex((rec: TreeNode) => rec.data.level === child.data.level && rec.data.code === child.data.code && rec.data.status.cd === child.data.status.cd) >= 0))
             this.selectedNodes.push(child); //perform selection of the children
         }
       } else {

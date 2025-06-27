@@ -196,8 +196,8 @@ namespace SynapseStudioWeb
                         opt.Limits.KeepAliveTimeout = TimeSpan.FromHours(24);
                     });
                     webBuilder.UseContentRoot(Directory.GetCurrentDirectory());
-                    webBuilder.UseSerilog();
-                }).Build();
+                    //webBuilder.UseSerilog();
+                }).UseSerilog().Build();
 
         private static IConfiguration GetConfiguration()
         {

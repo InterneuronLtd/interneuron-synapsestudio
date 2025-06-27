@@ -69,10 +69,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                         <div class="row">
                             <div class="col-md-12">
-                                <asp:Panel ID="fgSynapseNamespace" runat="server" class="form-group">
+                                <asp:Panel ID="fgSynapseNamespace" runat="server">
                                     <asp:Label ID="lblSynapseNamespace" runat="server" CssClass="control-label" for="ddlSynapseNamespace" Text="Select a namespace from the list below" Font-Bold="true"></asp:Label>
                                     <asp:Label ID="errrSynapseNamespace" runat="server"></asp:Label>
-                                    <asp:DropDownList ID="ddlSynapseNamespace" runat="server" CssClass="form-control input-lg" AutoPostBack="true" OnSelectedIndexChanged="ddlSynapseNamespace_SelectedIndexChanged">
+                                    <asp:DropDownList ID="ddlSynapseNamespace" runat="server" CssClass="form-select form-select-lg mb-3" AutoPostBack="true" OnSelectedIndexChanged="ddlSynapseNamespace_SelectedIndexChanged">
                                     </asp:DropDownList>
                                 </asp:Panel>
                             </div>

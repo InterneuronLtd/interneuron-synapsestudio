@@ -60,7 +60,8 @@ namespace SynapseStudioWeb.Controllers
 
         protected DataTable LoadAPIResources()
         {
-            string sql = "SELECT ar.\"Name\" as resourcename, aps.\"Name\" as scopename, aps.\"Description\" as scopedescription FROM \"ApiResources\" ar INNER JOIN \"ApiScopes\" aps on (ar.\"Id\" = aps.\"ApiResourceId\")  ORDER BY scopename;";
+            //string sql = "SELECT ar.\"Name\" as resourcename, aps.\"Name\" as scopename, aps.\"Description\" as scopedescription FROM \"ApiResources\" ar INNER JOIN \"ApiScopes\" aps on (ar.\"Id\" = aps.\"ApiResourceId\")  ORDER BY scopename;";
+            string sql = "SELECT ar.\"Name\" as resourcename, aps.\"Name\" as scopename, aps.\"Description\" as scopedescription FROM \"ApiResources\" ar inner join \"ApiResourceScopes\" ars on ars.\"ApiResourceId\" = ar.\"Id\" INNER JOIN \"ApiScopes\" aps on aps.\"Name\" = ars.\"Scope\" ORDER BY scopename;";
             var paramList = new List<KeyValuePair<string, string>>();
 
             DataSet ds = DataServices.DataSetFromSQL(sql, paramList, "connectionString_SynapseIdentityStore");

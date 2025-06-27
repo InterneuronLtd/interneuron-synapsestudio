@@ -91,11 +91,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                         </div>
                                     </div>
                                 </asp:Panel>
-                                <asp:Panel ID="pnlURIDropdown" runat="server" class="form-group">
+                                <asp:Panel ID="pnlURIDropdown" runat="server">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <asp:Label ID="lblURIType" runat="server" CssClass="control-label" Text="* Please select a URI type" Font-Bold="true"></asp:Label>
-                                            <asp:DropDownList ID="ddlURIType" runat="server" CssClass="form-control input-lg">
+                                            <asp:DropDownList ID="ddlURIType" runat="server" CssClass="form-select form-select-lg mb-3">
                                             </asp:DropDownList>
                                             <asp:RequiredFieldValidator ID="rfvURIType" runat="server" ControlToValidate="ddlURIType" ErrorMessage="Please select an URI type" InitialValue="Please select ..." ValidationGroup="validate" ForeColor="Red"></asp:RequiredFieldValidator>
                                         </div>

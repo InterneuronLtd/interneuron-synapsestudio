@@ -163,9 +163,12 @@ namespace SynapseStudio
                 cmd.CommandText = sqlQueryString;
                 try
                 {
-                    foreach (var param in parameters)
+                    if(parameters != null)
                     {
-                        cmd.Parameters.AddWithValue(param.Key, param.Value);
+                        foreach (var param in parameters)
+                        {
+                            cmd.Parameters.AddWithValue(param.Key, param.Value);
+                        }
                     }
                 }
                 catch { }
